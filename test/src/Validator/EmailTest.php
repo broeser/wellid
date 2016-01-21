@@ -27,6 +27,26 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
+    
+    /**
+     * Email provider, provides email adresses and whether they should be valid
+     * 
+     * @return array[]
+     */
+    public function emailProvider() {
+        return array(
+            array('@example.org', false),
+            array('example@', false),
+            array('@@@', false),
+            array('example', false),
+            array(false, false),
+            array(null, false),
+            array(42, false),
+            array('mail@benedictroeser.de', true),
+            array('valid.mail@example.org', true),
+            array('f@example.info', true)
+        );
+    }
 
     /**
      * @covers Wellid\Validator\Email::validate
@@ -41,13 +61,12 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\Email::validateBool
-     * @todo   Implement testValidateBool().
+     * @dataProvider emailProvider
+     * @param mixed $email
+     * @param boolean $expected
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidateBool($email, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool($email));
     }
 
 }
