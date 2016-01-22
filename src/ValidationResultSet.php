@@ -60,6 +60,21 @@ class ValidationResultSet implements \Iterator, \Countable {
     }
     
     /**
+     * Returns the first error result, or null if there is no error
+     * 
+     * @return ValidationResult|null
+     */
+    public function firstError() {
+        foreach($this->entries as $entry) {
+            if($entry->isError()) {
+                return $entry;
+            }
+        }
+        
+        return null;
+    }
+    
+    /**
      * Returns whether there are only passing ValidationResults in this
      * ValidationResultSet
      * 
