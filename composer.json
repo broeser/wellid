@@ -11,6 +11,9 @@
         "phpunit/phpunit": "^5.1",
         "phpunit/phpunit-skeleton-generator": "^2.0"        
     },
+    "suggest": {
+        "broeser/sanitor": "Sanitizes input before validating, see SanitorBridgeTrait.php"
+    },
     "autoload": {
         "psr-4": {
             "Wellid\\": "src/",
