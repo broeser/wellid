@@ -94,6 +94,29 @@ in the ValidationResultSet, its counterpart is called **hasPassed()**. You can
 retrieve the **firstError()**-ValidationResult (if there is any), if everything
 has passed the method will return null.
 
+```PHP
+<?php
+/*
+ * The value to validate
+ */
+$value = 'somethingentered';
+
+/*
+ * The validator that shall be used to validate it
+ */
+$maxLengthValidator = new Wellid\Validator\MaxLength(7);
+$minLengthValidator = new Wellid\Validator\MaxLength(3);
+
+$validationResultSet = new Wellid\ValidationResultSet();
+$validationResultSet->add($maxLengthValidator->validate($value));
+$validationResultSet->add($minLengthValidator->validate($value));
+
+if($validationResultSet->hasPassed()) {
+    print('The given value '.$value.' fits our requirements of a maximum and minimum length! YAY!'.PHP_EOL);
+} else {
+    print('The given value '.$value.' is totally invalid. :-('.PHP_EOL);
+}
+```
 
 
 ### Validating objects _with ValidatableTrait and ValidatableInterface_
