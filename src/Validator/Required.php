@@ -64,8 +64,8 @@ class Required implements ValidatorInterface {
      * 
      * @return array
      */
-    private function supportedDataTypes() {
-        return array('boolean', 'string', 'array', 'numeric', 'file', 'int', 'float');
+    public static function supportedDataTypes() {
+        return array('boolean', 'string', 'array', 'numeric', 'file', 'int', 'float', 'double');
     }
     
     /**
@@ -77,8 +77,8 @@ class Required implements ValidatorInterface {
     public function __construct($dataType = 'string') {
         $dataType = strtolower($dataType);
         
-        if(!in_array($dataType, $this->supportedDataTypes())) {
-            throw new DataType('dataType', 'one of '.implode(', ', $this->supportedDataTypes()), $dataType);
+        if(!in_array($dataType, self::supportedDataTypes())) {
+            throw new DataType('dataType', 'one of '.implode(', ', self::supportedDataTypes()), $dataType);
         }
         
         $this->dataType = $dataType;
@@ -110,6 +110,7 @@ class Required implements ValidatorInterface {
             case 'numeric':
             case 'int':
             case 'float':
+            case 'double':
                 if(!is_numeric($value) && strlen($value)===0) {
                     return new ValidationResult(false, 'Empty', self::ERR_EMPTY_NUMERIC);
                 }
