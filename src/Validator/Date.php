@@ -60,7 +60,7 @@ class Date implements ValidatorInterface {
      */
     public function validate($value) {
         $dateTime = \DateTime::createFromFormat($this->format, $value);
-        if(!$dateTime instanceof DateTime || $dateTime->format($this->format)!=$value) {
+        if(!$dateTime instanceof \DateTime || $dateTime->format($this->format)!=$value) {
             return new ValidationResult(false, 'Invalid date');
         }
 
