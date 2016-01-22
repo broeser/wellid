@@ -60,12 +60,31 @@ if($maxLengthValidator->validateBool($value)) {
 
 foreach(array(57.3, -6) as $v) {
     $yourBalance = WellidUsageExamples\AccountBalance::createFromFloat($v);
-    if($yourBalance->validate()->hasErrors()) {
+    $result = $yourBalance->validate();
+    if($result->hasErrors()) {
         print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
-        foreach($yourBalance->validate() as $result) {
-            if($result->isError()) {
-                print('Aha, that is why: '.$result->getMessage().PHP_EOL);
-            }
-        }
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
     }
+}
+
+// Refer to README.md for more information
+
+if(!class_exists('\Sanitor\Sanitizer')) {
+    die('Please install Sanitor for optional example 3: composer require broeser/sanitor'.PHP_EOL);
+}
+
+/*
+ * (Optional) Example 3: wellid and Sanitor
+ */
+
+$emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
+$emailValidator->setRawValue('mail@benedictroeser.de');
+if($emailValidator->validate()->hasErrors()) {
+    print('Why! Oh why! Errors everywhere!');
+}
+
+// values can also be optained from INPUT_GET, INPUT_POST, etc.:
+$emailValidator->rawValueFromInput(INPUT_REQUEST, 'email');
+if($emailValidator->validate()->hasPassed()) {
+    print('Nice, this input has been valid: '.$emailValidator->getValue());
 }

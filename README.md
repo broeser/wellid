@@ -105,12 +105,68 @@ object and to **validate()** it using those validators. Make sure to implement a
 **getValue()** method to supply the validators with a primitive version of your
 object's value.
 
+Note that **validate()** returns a ValidationResultSet and not a ValidationResult
+(see above).
+
 The **validateValue()**-method of **ValidatableTrait** is supposed to be used
 only internally but might come handy, if you want to use all validators assigned
 to an object to validate a specific value (that might not have to do anything with
 said object). The method is probably most useful when assigning default values:
 You can validate your default value with the same validators that are used
 when an user-supplied value is validated.
+
+The following example code can be found in usage_examples.php and examples/AccountBalance.php. 
+It uses three validators: The value shall be a floating point number. It shall
+be at least 0 (zero). Supplying a value is required. (The required validator
+needs to know the primitive data type, 'numeric').
+
+```PHP
+<?php
+class AccountBalance implements \Wellid\ValidatableInterface {
+    use \Wellid\ValidatableTrait;
+
+    /**
+     * @var float
+     */
+    protected $value = null;
+
+    public function __construct() {
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+    }
+    
+    /**
+     * @param float $val
+     * @return \self
+     */    
+    public static function createFromFloat($val) {
+        $newInstance = new self();
+        $newInstance->setValue($val);
+        return $newInstance;
+    }
+    
+    /**
+     * @return float
+     */
+    public function getValue() {
+        return $this->value;
+    }
+    
+    /**
+     * @param float $val
+     */
+    public function setValue($val) {
+        $this->value = $val;
+    }
+}
+
+foreach(array(57.3, -6) as $v) {
+    $yourBalance = WellidUsageExamples\AccountBalance::createFromFloat($v);
+    if($yourBalance->validate()->hasErrors()) {
+        print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
+    }
+}
+```
 
 ### Using wellid with Sanitor _– the SanitorBridgeTrait_
 
@@ -131,6 +187,37 @@ These are the four basic steps necessary to integrate Sanitor and wellid
 4. Make sure that these classes call $this->setSanitizer(...) somewhere
    before validation (e. g. in the constructor) and set a fitting
    sanitization filter (you can try FILTER_DEFAULT)
+
+The following example code can be found in usage_examples.php and examples/SanitorWellidEmailExample.php. 
+
+```PHP
+<?php
+class SanitorWellidEmailExample implements \Sanitor\SanitizableInterface, \Wellid\ValidatableInterface {
+    use \Wellid\SanitorBridgeTrait;
+
+    /**
+     * Constructor
+     * 
+     * @param \Sanitor\Sanitizer $sanitizer
+     */
+    public function __construct(\Sanitor\Sanitizer $sanitizer = null) {
+        $this->setSanitizer(is_null($sanitizer)?new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL):$sanitizer);
+    }
+}
+
+$emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
+$emailValidator->setRawValue('mail@benedictroeser.de');
+if($emailValidator->validate()->hasErrors()) {
+    print('Why! Oh why! Errors everywhere!');
+}
+
+// values can also be optained from INPUT_GET, INPUT_POST, etc.:
+$emailValidator->rawValueFromInput(INPUT_REQUEST, 'email');
+if($emailValidator->validate()->hasPassed()) {
+    print('Nice, this input has been valid: '.$emailValidator->getValue());
+}
+
+```
 
 ## List of validators:
 
