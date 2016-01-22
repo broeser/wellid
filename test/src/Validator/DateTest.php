@@ -46,7 +46,7 @@ class DateTest extends \PHPUnit_Framework_TestCase {
             array('3008-10-19', true)
         );
     }
-    
+
     /**
      * @covers Wellid\Validator\Date::validate
      * @dataProvider dateProvider

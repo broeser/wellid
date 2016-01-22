@@ -27,7 +27,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
-    
+
     /**
      * Email provider, provides email adresses and whether they should be valid
      * 

@@ -56,13 +56,23 @@ trait ValidatableTrait {
             return $this->lastValidationResult;
         }
                 
+        $this->lastValidationResult = $this->validateValue($this->getValue());
+            
+        return $this->lastValidationResult;
+    }
+    
+    /**
+     * Validates a value against all given Validators
+     * - for internal use -
+     * 
+     * @param mixed $value
+     * @return ValidationResultSet
+     */
+    protected function validateValue($value) {
         $validationResultSet = new ValidationResultSet();
         foreach($this->validators as $validator) {
-            $validationResultSet->add($validator->validate($this->getValue()));
+            $validationResultSet->add($validator->validate($value));
         }
-        
-        $this->lastValidationResult = $validationResultSet;
-            
         return $validationResultSet;
     }
     
