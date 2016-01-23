@@ -125,7 +125,7 @@ trait SanitorBridgeTrait {
     /**
      * Returns the raw value
      * 
-     * Do not output or store this raw value anywhere!
+     * !!! Do not output or store this raw value anywhere !!!
      * 
      * @return mixed
      */
