@@ -26,6 +26,8 @@
 namespace WellidUsageExamples;
 
 /**
+ * "Account Balance" data object, validatable
+ * 
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 class AccountBalance implements \Wellid\ValidatableInterface {
@@ -37,7 +39,7 @@ class AccountBalance implements \Wellid\ValidatableInterface {
     protected $value = null;
 
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
     
     /**

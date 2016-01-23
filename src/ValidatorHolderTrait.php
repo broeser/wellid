@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Wellid;
+
 use Wellid\Validator\ValidatorInterface;
 
 /**

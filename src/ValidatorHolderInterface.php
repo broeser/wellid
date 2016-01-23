@@ -25,6 +25,7 @@
  */
 
 namespace Wellid;
+
 use Wellid\Validator\ValidatorInterface;
 /**
  * Interface for everything that can be assigned Validators.

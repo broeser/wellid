@@ -26,12 +26,13 @@
 namespace WellidUsageExamples;
 
 /**
+ * A collection of validators pertaining to "AccountBalance"
+ * 
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-class AccountBalanceValidators implements \Wellid\ValidatorHolderInterface {
-    use \Wellid\ValidatorHolderTrait;
+class AccountBalanceValidators extends \Wellid\ValidatorHolder {
 
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
 }

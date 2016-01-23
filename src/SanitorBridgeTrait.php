@@ -24,6 +24,7 @@
  * THE SOFTWARE.
  */
 namespace Wellid;
+
 /**
  * This trait allows to easily pass values from Sanitor to wellid
  * 

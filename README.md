@@ -158,8 +158,7 @@ Note that **validate()** returns a ValidationResultSet and not a ValidationResul
 
 The following example code can be found in usage_examples.php and examples/AccountBalance.php. 
 It uses three validators: The value shall be a floating point number. It shall
-be at least 0 (zero). Supplying a value is required. (The required validator
-needs to know the primitive data type, 'numeric').
+be between 0 (zero) and 830.
 
 ```PHP
 <?php
@@ -172,7 +171,7 @@ class AccountBalance implements \Wellid\ValidatableInterface {
     protected $value = null;
 
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
     
     /**
@@ -210,20 +209,21 @@ foreach(array(57.3, -6) as $v) {
 }
 ```
 
-### A collection of Validators _with ValidatorHolderInterface and ValidatorHolderTrait_
+### A collection of Validators _The ValidatorHolder_
 
 The way wellid is designed, you can always add validators directly to your data
 objects. However it might become handy to store a collection of validators
 separate from the data objects or even without having data objects.
 
-To implement a collection of validators, create a class and let it implement
-**ValidatorHolderInterface**. Use the **ValidatorHolderTrait** to get some
-basic functionality. Adding validators works the same as on data objects: You
+You can use the **ValidatorHolder**-class directly, extend it by your own class,
+or you can create a class that implements **ValidatorHolderInterface** and may
+use the **ValidatorHolderTrait** to get some basic functionality.
+
+Adding validators works the same as on data objects: You
 can use addValidators() or **addValidator()** (for a single validator). Use 
 **getValidators()** to retrieve an array of all assigned validators.
 
-To validate a value with the ValidatorHolder you implemented, use the 
-**validateValue()**-method. 
+To validate a value with the ValidatorHolder, use the **validateValue()**-method. 
 
 The AccountBalance-example from above becomes much cleaner and easier to 
 understand. The following example code can be found in usage_examples.php and 
@@ -233,11 +233,9 @@ addValidator or addValidators from anywhere.)
 
 ```PHP
 <?php
-class AccountBalanceValidators implements \Wellid\ValidatorHolderInterface {
-    use \Wellid\ValidatorHolderTrait;
-
+class AccountBalanceValidators extends \Wellid\ValidatorHolder {
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
 }
 

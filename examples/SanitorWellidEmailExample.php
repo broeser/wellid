@@ -27,7 +27,7 @@
 namespace WellidUsageExamples;
 
 /**
- * Description of SanitorWellidEmailExample
+ * E-Mail sanitizer and validator, depends on Sanitor
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
