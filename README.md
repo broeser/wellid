@@ -149,19 +149,12 @@ if($validationResultSet->hasPassed()) {
 If you want to create classes (as opposed to primitive data types) whose instances
 are validateable by wellid, just implement the **ValidatableInterface** in your class
 and use the **ValidatableTrait**. You'll now be able to **addValidators()** to your 
-object and to **validate()** it using those validators. Make sure to implement a
-**getValue()** method to supply the validators with a primitive version of your
-object's value.
+object. You can validate your object with the **validate()** and **validateBool()**
+methods. Make sure to implement a **getValue()** method to supply the validators
+with a primitive version of your object's value.
 
 Note that **validate()** returns a ValidationResultSet and not a ValidationResult
 (see above).
-
-The **validateValue()**-method of **ValidatableTrait** is supposed to be used
-only internally but might come handy, if you want to use all validators assigned
-to an object to validate a specific value (that might not have to do anything with
-said object). The method is probably most useful when assigning default values:
-You can validate your default value with the same validators that are used
-when an user-supplied value is validated.
 
 The following example code can be found in usage_examples.php and examples/AccountBalance.php. 
 It uses three validators: The value shall be a floating point number. It shall
@@ -229,6 +222,9 @@ basic functionality. Adding validators works the same as on data objects: You
 can use addValidators() or **addValidator()** (for a single validator). Use 
 **getValidators()** to retrieve an array of all assigned validators.
 
+To validate a value with the ValidatorHolder you implemented, use the 
+**validateValue()**-method. 
+
 The AccountBalance-example from above becomes much cleaner and easier to 
 understand. The following example code can be found in usage_examples.php and 
 examples/AccountBalanceValidators.php. (Of course you don't have to setup the
@@ -254,6 +250,10 @@ foreach(array(57.3, -6) as $v) {
     }
 }
 ```
+
+Please note, that there is currently no validateBoolValue()-method for
+ValidatorHolders. If you need the boolean value you can use the syntax
+   validateValue($value)->hasPassed()
 
 Another example shows, how to use ValidatorHolders with data objects. (Both 
 used classes are the same as in the examples above):
