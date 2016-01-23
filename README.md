@@ -17,6 +17,13 @@ composer require broeser/wellid
 
 ## How to use
 
+**IMPORTANT NOTE:** Never try to validate raw data! Sanitize your data first, 
+then pass it to wellid. Recommended sanitization options are:
+
+ 1. Let your framework handle sanitization
+ 2. Use Sanitor (composer require broeser/sanitor)
+ 3. Use PHP's filter_input() and filter_var() methods
+
 ### Simple use case _with validateBool()_
 
 ```PHP
@@ -45,13 +52,29 @@ The simplest usage case is creating a new validator and using the
 **validateBool()**-method. It takes the value that shall be validated as parameter
 and returns true on success and false on failure.
 
+These are the validators supplied with wellid by default:
+
+ - Date
+ - Email
+ - Filesize _(experimental)_
+ - Float
+ - Integer
+ - MIME _(experimental)_
+ - Max
+ - MaxLength
+ - Min
+ - MinLength
+ - Password
+ - Required _(experimental)_
+ - URL
+
 ### Error handling _with validate() and ValidationResult_
 
 Sometimes it is important to know, _why_ validation failed. If you need more than
 boolean true/false, you can use the **validate()**-method of a validator of
 your choice to get a **ValidationResult**-object. A ValidationResult includes 
-an error message and error code if validation fails, you can use **getCode** and
- **getMessage** to retrieve them:
+an error message and error code if validation fails, you can use **getCode()** and
+ **getMessage()** to retrieve them:
 
 ```PHP
 <?php
@@ -184,7 +207,65 @@ class AccountBalance implements \Wellid\ValidatableInterface {
 
 foreach(array(57.3, -6) as $v) {
     $yourBalance = WellidUsageExamples\AccountBalance::createFromFloat($v);
-    if($yourBalance->validate()->hasErrors()) {
+    $result = $yourBalance->validate();
+    if($result->hasErrors()) {
+        print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
+    }
+}
+```
+
+### A collection of Validators _with ValidatorHolderInterface and ValidatorHolderTrait_
+
+The way wellid is designed, you can always add validators directly to your data
+objects. However it might become handy to store a collection of validators
+separate from the data objects or even without having data objects.
+
+To implement a collection of validators, create a class and let it implement
+**ValidatorHolderInterface**. Use the **ValidatorHolderTrait** to get some
+basic functionality. Adding validators works the same as on data objects: You
+can use addValidators() or **addValidator()** (for a single validator). Use 
+**getValidators()** to retrieve an array of all assigned validators.
+
+The AccountBalance-example from above becomes much cleaner and easier to 
+understand. The following example code can be found in usage_examples.php and 
+examples/AccountBalanceValidators.php. (Of course you don't have to setup the
+validators in the constructor in your own project, but you can just call
+addValidator or addValidators from anywhere.)
+
+```PHP
+<?php
+class AccountBalanceValidators implements \Wellid\ValidatorHolderInterface {
+    use \Wellid\ValidatorHolderTrait;
+
+    public function __construct() {
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
+    }
+}
+
+$accountBalanceValidators = new \WellidUsageExamples\AccountBalanceValidators();
+foreach(array(57.3, -6) as $v) {
+    $result = $accountBalanceValidators->validateValue($v);
+    if($result->hasErrors()) {
+        print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
+    }
+}
+```
+
+Another example shows, how to use ValidatorHolders with data objects. (Both 
+used classes are the same as in the examples above):
+```PHP
+<?php
+/*
+ * Example 3b: Using the ValidatorHolderTrait & ValidatorHolderInterface with
+ * data objects (see UsageExamples/-directory)
+ */
+$accountBalanceValidators = new \WellidUsageExamples\AccountBalanceValidators();
+foreach(array(57.3, -6) as $v) {
+    $yourBalance = WellidUsageExamples\AccountBalance::createFromFloat($v);
+    $result = $accountBalanceValidators->validateValue($yourBalance->getValue());
+    if($result->hasErrors()) {
         print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
         print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
     }
@@ -239,24 +320,17 @@ $emailValidator->rawValueFromInput(INPUT_REQUEST, 'email');
 if($emailValidator->validate()->hasPassed()) {
     print('Nice, this input has been valid: '.$emailValidator->getValue());
 }
-
 ```
 
-## List of validators:
+### Exceptions
 
-- Date
-- Email
-- Filesize
-- Float
-- Integer
-- MIME
-- Max
-- MaxLength
-- Min
-- MinLength
-- Password
-- Required
-- URL
+Feel free to use the Exception-classes supplied with wellid in any validation
+context you want to.
+
+ - DataFormat
+ - DataType
+ - NotFound
+
 
 ## wellid?
 

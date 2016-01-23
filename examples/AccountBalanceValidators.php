@@ -22,45 +22,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Wellid;
+
+namespace WellidUsageExamples;
 
 /**
- * This trait can be used in everything that can be validated
- * Can be used on value objects (e. g. "Money") or on objects that hold several 
- * values (e. g. "Form")
- *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait ValidatableTrait {
-    use ValidatorHolderTrait;
-	    
-    /**
-     * ValidationResultSet of the last validation of this
-     * 
-     * @var ValidationResultSet
-     */
-    protected $lastValidationResult = null;
-    
-    /**
-     * Validates this against all given Validators
-     * 
-     * @return ValidationResultSet
-     */
-    public function validate() {        
-        if($this->lastValidationResult instanceof ValidationResultSet) {
-            return $this->lastValidationResult;
-        }
-                
-        $this->lastValidationResult = $this->validateValue($this->getValue());
-            
-        return $this->lastValidationResult;
-    }
-    
-    /**
-     * Removes the last ValidationResultSet from cache in order to re-validate 
-     * this (usually not necessary)
-     */
-    public function clearValidationResult() {
-        $this->lastValidationResult = null;
+class AccountBalanceValidators implements \Wellid\ValidatorHolderInterface {
+    use \Wellid\ValidatorHolderTrait;
+
+    public function __construct() {
+        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Required('numeric'));
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * The MIT License
  *
@@ -22,45 +23,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Wellid;
 
+namespace Wellid;
+use Wellid\Validator\ValidatorInterface;
 /**
- * This trait can be used in everything that can be validated
- * Can be used on value objects (e. g. "Money") or on objects that hold several 
- * values (e. g. "Form")
- *
+ * Interface for everything that can be assigned Validators.
+ * 
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait ValidatableTrait {
-    use ValidatorHolderTrait;
-	    
+interface ValidatorHolderInterface {
     /**
-     * ValidationResultSet of the last validation of this
+     * Assigns a Validator that shall be used to validate this
      * 
-     * @var ValidationResultSet
+     * @param ValidatorInterface $validator
+     * @return ValidatableInterface Returns itself for daisy-chaining
      */
-    protected $lastValidationResult = null;
+    public function addValidator(ValidatorInterface $validator);
+        
+    /**
+     * Assigns several Validators that shall be used to validate this
+     * 
+     * @param ValidatorInterface ...$validators
+     * @return ValidatableInterface Returns itself for daisy-chaining
+     */
+    public function addValidators(ValidatorInterface ...$validators);
     
     /**
-     * Validates this against all given Validators
+     * Returns an array of Validators used to validate this
      * 
+     * @return ValidatorInterface[]
+     */
+    public function getValidators();
+    
+    /**
+     * Validates a value against all Validators assigned to this ValidatorHolder
+     * 
+     * @param mixed $value
      * @return ValidationResultSet
      */
-    public function validate() {        
-        if($this->lastValidationResult instanceof ValidationResultSet) {
-            return $this->lastValidationResult;
-        }
-                
-        $this->lastValidationResult = $this->validateValue($this->getValue());
-            
-        return $this->lastValidationResult;
-    }
-    
-    /**
-     * Removes the last ValidationResultSet from cache in order to re-validate 
-     * this (usually not necessary)
-     */
-    public function clearValidationResult() {
-        $this->lastValidationResult = null;
-    }
+    public function validateValue($value);
 }

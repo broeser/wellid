@@ -26,12 +26,10 @@ namespace Wellid;
 use Wellid\Validator\ValidatorInterface;
 /**
  * Interface for everything that can be validated
- * Can be used on value objects or on objects that hold several values
- * (e. g. "Form")
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface ValidatableInterface {   
+interface ValidatableInterface extends ValidatorHolderInterface {
     /**
      * Validates this against all assigned Validators
      * 
@@ -45,29 +43,6 @@ interface ValidatableInterface {
      * If there is no caching of ValidationResultSets, this method may do nothing
      */
     public function clearValidationResult();
-    
-    /**
-     * Assigns a Validator that shall be used to validate this
-     * 
-     * @param ValidatorInterface $validator
-     * @return ValidatableInterface Returns itself for daisy-chaining
-     */
-    public function addValidator(ValidatorInterface $validator);
-    
-    /**
-     * Assigns several Validators that shall be used to validate this
-     * 
-     * @param ValidatorInterface ...$validators
-     * @return ValidatableInterface Returns itself for daisy-chaining
-     */
-    public function addValidators(ValidatorInterface ...$validators);
-    
-    /**
-     * Returns an array of Validators used to validate this
-     * 
-     * @return ValidatorInterface[]
-     */
-    public function getValidators();
     
     /**
      * Returns the value that shall be passed to the assigned validators

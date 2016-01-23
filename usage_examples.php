@@ -67,14 +67,42 @@ foreach(array(57.3, -6) as $v) {
     }
 }
 
-// Refer to README.md for more information
+/*
+ * Example 3: Using the ValidatorHolderTrait & ValidatorHolderInterface
+ * (see UsageExamples/-directory)
+ */
 
-if(!class_exists('\Sanitor\Sanitizer')) {
-    die('Please install Sanitor for optional example 3: composer require broeser/sanitor'.PHP_EOL);
+$accountBalanceValidators = new \WellidUsageExamples\AccountBalanceValidators();
+foreach(array(57.3, -6) as $v) {
+    $result = $accountBalanceValidators->validateValue($v);
+    if($result->hasErrors()) {
+        print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
+    }
 }
 
 /*
- * (Optional) Example 3: wellid and Sanitor
+ * Example 3b: Using the ValidatorHolderTrait & ValidatorHolderInterface with
+ * data objects (see UsageExamples/-directory)
+ */
+$accountBalanceValidators = new \WellidUsageExamples\AccountBalanceValidators();
+foreach(array(57.3, -6) as $v) {
+    $yourBalance = WellidUsageExamples\AccountBalance::createFromFloat($v);
+    $result = $accountBalanceValidators->validateValue($yourBalance->getValue());
+    if($result->hasErrors()) {
+        print('Oh dear! Something invalid was used as my account balance!'.PHP_EOL);
+        print('Aha, that is why: '.$result->firstError()->getMessage().PHP_EOL);
+    }
+}
+
+// Refer to README.md for more information
+
+if(!class_exists('\Sanitor\Sanitizer')) {
+    die('Please install Sanitor for optional example 4: composer require broeser/sanitor'.PHP_EOL);
+}
+
+/*
+ * (Optional) Example 4: wellid and Sanitor
  */
 
 $emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
