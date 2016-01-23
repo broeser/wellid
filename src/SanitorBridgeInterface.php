@@ -25,12 +25,42 @@
 namespace Wellid;
 
 /**
- * This trait can be used in everything that can be validated
- * Can be used on value objects (e. g. "Money") or on objects that hold several 
- * values (e. g. "Form")
+ * Interface for data objects that shall be used with both Sanitor and wellid
+ * 
+ * Sanitor is a wrapper around PHP's filter_-functions and can be used to 
+ * sanitize user input or other data.
+ * 
+ * Refer to README.md for usage instructions!
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait ValidatableTrait {
-    use ValidatorHolderTrait, Internal\InternalTrait;
+interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, Internal\InternalInterface {
+    /**
+     * Returns the Sanitizer
+     * 
+     * @return \Sanitor\Sanitizer
+     */
+    public function getSanitizer();
+    
+    /**
+     * Sets the Sanitizer
+     * 
+     * @param \Sanitor\Sanitizer $sanitizer
+     */
+    public function setSanitizer(\Sanitor\Sanitizer $sanitizer);
+        
+    /**
+     * Obtains a raw value from GET/POST/COOKIE/… and saves it into $this->rawValue
+     * 
+     * @param int $type INPUT_POST, INPUT_GET, INPUT_COOKIE, INPUT_SERVER, INPUT_ENV, INPUT_REQUEST or INPUT_SESSION
+     * @param string $variableName
+     */
+    public function rawValueFromInput($type, $variableName);
+    
+    /**
+     * Sets the raw value
+     * 
+     * @param mixed $rawValue
+     */
+    public function setRawValue($rawValue);
 }

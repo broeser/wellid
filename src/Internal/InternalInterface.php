@@ -22,15 +22,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Wellid;
+namespace Wellid\Internal;
 
 /**
- * This trait can be used in everything that can be validated
- * Can be used on value objects (e. g. "Money") or on objects that hold several 
- * values (e. g. "Form")
- *
+ * @internal This interface is used by the ValidatableInterface and SanitorBridgeInterface
+ *           to reduce code duplication. By design, wellid does not suggest the
+ *           use of this interface directly but proposes to use either 
+ *           ValidatableInterface or SanitorBridgeInterface. In case you want to use 
+ *           this functionality for validatable data objects without the 
+ *           FieldHolderInterface, feel free to do so, but be advised, that no
+ *           documentation on this topic exists.
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait ValidatableTrait {
-    use ValidatorHolderTrait, Internal\InternalTrait;
+interface InternalInterface {
+    /**
+     * Validates this against all assigned Validators
+     * 
+     * @return ValidationResultSet
+     */
+    public function validate();
+    
+    /**
+     * Removes the last ValidationResultSet from cache in order to re-validate 
+     * this (usually not necessary).
+     * If there is no caching of ValidationResultSets, this method may do nothing
+     */
+    public function clearValidationResult();
+    
+    /**
+     * Returns the value that shall be passed to the assigned validators
+     * 
+     * @return mixed
+     */
+    public function getValue();
 }

@@ -285,9 +285,9 @@ These are the four basic steps necessary to integrate Sanitor and wellid
 1. Install the Sanitor package (composer require broeser/sanitor)
 2. Use the **SanitorBridgeTrait** in all places where you need sanitized data to
    be validated. Use it additionally to the ValidatableTrait.
-3. Make sure that those classes, which should already implement 
-   ValidatableInterface also implement \Sanitor\SanitizableInterface
-4. Make sure that these classes call $this->setSanitizer(...) somewhere
+3. Make sure that those classes (which should already implement 
+   ValidatableInterface) also implement **SanitorBridgeInterface**
+4. Make sure that those classes call $this->setSanitizer(...) somewhere
    before validation (e. g. in the constructor) and set a fitting
    sanitization filter (you can try FILTER_DEFAULT)
 

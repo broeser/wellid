@@ -30,20 +30,12 @@ namespace Wellid;
  * Sanitor is a wrapper around PHP's filter_-functions and can be used to 
  * sanitize user input or other data.
  * 
- * If you want to use Sanitor in conjunction with wellid, follow these four 
- * steps:
- * 1. install Sanitor (composer require broeser/sanitor)
- * 2. use this trait in alle places where you'd otherwise use ValidatableTrait
- * 3. make sure that your classes implementing ValidatableInterface also 
- *    implement \Sanitor\SanitizableInterface
- * 4. make sure that these classes call $this->setSanitizer(...) somwhere
- *    before validation (e. g. in the constructor) and set a fitting
- *    sanitization filter (you can try FILTER_DEFAULT)
+ * Refer to README.md for usage instructions!
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 trait SanitorBridgeTrait {
-    use \Sanitor\SanitizableTrait;
+    use \Sanitor\SanitizableTrait, Internal\InternalTrait;
     
     /**
      * Unsafe unsanitized unfiltered unvalidated raw value

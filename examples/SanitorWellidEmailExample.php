@@ -31,8 +31,8 @@ namespace WellidUsageExamples;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-class SanitorWellidEmailExample implements \Sanitor\SanitizableInterface, \Wellid\ValidatableInterface {
-    use \Wellid\SanitorBridgeTrait;
+class SanitorWellidEmailExample implements \Wellid\SanitorBridgeInterface, \Wellid\ValidatableInterface {
+    use \Wellid\SanitorBridgeTrait, \Wellid\ValidatableTrait;
 
     /**
      * Constructor

@@ -23,31 +23,10 @@
  * THE SOFTWARE.
  */
 namespace Wellid;
-use Wellid\Validator\ValidatorInterface;
+
 /**
  * Interface for everything that can be validated
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface ValidatableInterface extends ValidatorHolderInterface {
-    /**
-     * Validates this against all assigned Validators
-     * 
-     * @return ValidationResultSet
-     */
-    public function validate();
-    
-    /**
-     * Removes the last ValidationResultSet from cache in order to re-validate 
-     * this (usually not necessary).
-     * If there is no caching of ValidationResultSets, this method may do nothing
-     */
-    public function clearValidationResult();
-    
-    /**
-     * Returns the value that shall be passed to the assigned validators
-     * 
-     * @return mixed
-     */
-    public function getValue();
-}
+interface ValidatableInterface extends Internal\InternalInterface, ValidatorHolderInterface {}
