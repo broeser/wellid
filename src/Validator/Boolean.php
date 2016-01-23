@@ -40,7 +40,7 @@ class Boolean implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
-        if(!filter_var($value, FILTER_VALIDATE_BOOLEAN)) {
+        if(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)===null) {
             return new ValidationResult(false, 'Not a valid boolean');
         }        
         return new ValidationResult(true);
