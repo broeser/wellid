@@ -283,11 +283,10 @@ Refer to the README.md in the broeser/sanitor-package for more information.
 These are the four basic steps necessary to integrate Sanitor and wellid
 
 1. Install the Sanitor package (composer require broeser/sanitor)
-2. Use the **SanitorBridgeTrait** _instead_ of the ValidatableTrait in all
-   places where you'd otherwise use ValidatableTrait. SanitorBridgeTrait internally
-   uses the ValidatableTrait so no functionality will be lost
-3. Make sure that your classes implementing ValidatableInterface also 
-   implement \Sanitor\SanitizableInterface
+2. Use the **SanitorBridgeTrait** in all places where you need sanitized data to
+   be validated. Use it additionally to the ValidatableTrait.
+3. Make sure that those classes, which should already implement 
+   ValidatableInterface also implement \Sanitor\SanitizableInterface
 4. Make sure that these classes call $this->setSanitizer(...) somewhere
    before validation (e. g. in the constructor) and set a fitting
    sanitization filter (you can try FILTER_DEFAULT)
@@ -297,7 +296,7 @@ The following example code can be found in usage_examples.php and examples/Sanit
 ```PHP
 <?php
 class SanitorWellidEmailExample implements \Sanitor\SanitizableInterface, \Wellid\ValidatableInterface {
-    use \Wellid\SanitorBridgeTrait;
+    use \Wellid\SanitorBridgeTrait, \Wellid\ValidatableTrait;
 
     /**
      * Constructor

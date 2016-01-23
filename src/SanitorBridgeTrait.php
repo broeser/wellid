@@ -43,7 +43,7 @@ namespace Wellid;
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 trait SanitorBridgeTrait {
-    use \Sanitor\SanitizableTrait, ValidatableTrait;
+    use \Sanitor\SanitizableTrait;
     
     /**
      * Unsafe unsanitized unfiltered unvalidated raw value
