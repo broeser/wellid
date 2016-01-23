@@ -45,7 +45,7 @@ trait InternalTrait {
     /**
      * Validates this against all given Validators
      * 
-     * @return ValidationResultSet
+     * @return \Wellid\ValidationResultSet
      */
     public function validate() {        
         if($this->lastValidationResult instanceof ValidationResultSet) {
@@ -55,6 +55,17 @@ trait InternalTrait {
         $this->lastValidationResult = $this->validateValue($this->getValue());
             
         return $this->lastValidationResult;
+    }
+    
+    /**
+     * Validates this against all assigned Validators
+     * 
+     * Returns true if everything passed, false if there was at least one error.
+     * 
+     * @return boolean
+     */
+    public function validateBool() {
+        return $this->validate()->hasPassed();
     }
     
     /**

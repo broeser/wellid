@@ -43,6 +43,15 @@ interface InternalInterface {
     public function validate();
     
     /**
+     * Validates this against all assigned Validators
+     * 
+     * Returns true if everything passed, false if there was at least one error.
+     * 
+     * @return boolean
+     */
+    public function validateBool();
+    
+    /**
      * Removes the last ValidationResultSet from cache in order to re-validate 
      * this (usually not necessary).
      * If there is no caching of ValidationResultSets, this method may do nothing
