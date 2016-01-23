@@ -54,18 +54,20 @@ and returns true on success and false on failure.
 
 These are the validators supplied with wellid by default:
 
+ - Boolean
  - Date
  - Email
  - Filesize _(experimental)_
  - Float
+ - IPAddress
  - Integer
- - MIME _(experimental)_
+ - MacAddress
  - Max
  - MaxLength
+ - MIME _(experimental)_
  - Min
  - MinLength
  - Password
- - Required _(experimental)_
  - URL
 
 ### Error handling _with validate() and ValidationResult_
