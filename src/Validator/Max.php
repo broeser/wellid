@@ -39,7 +39,7 @@ class Max implements ValidatorInterface {
      * 
      * @var float|int
      */
-    private $max;
+    protected $max;
     
     /**
      * Constructor

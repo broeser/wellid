@@ -38,7 +38,7 @@ class MinLength implements ValidatorInterface {
      * 
      * @var int
      */
-    private $min;
+    protected $min;
     
     /**
      * Constructor

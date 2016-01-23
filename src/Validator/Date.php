@@ -38,7 +38,7 @@ class Date implements ValidatorInterface {
      * @link http://php.net/manual/en/function.date.php
      * @var string
      */
-    private $format = 'Y-m-d';
+    protected $format = 'Y-m-d';
     
     /**
      * Constructor

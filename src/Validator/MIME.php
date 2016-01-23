@@ -42,14 +42,14 @@ class MIME implements ValidatorInterface {
      * 
      * @var string
      */
-    private $mimeMediatype;
+    protected $mimeMediatype;
     
     /**
      * Subtype of MIME type
      * 
      * @var type 
      */
-    private $mimeSubtype;
+    protected $mimeSubtype;
 
     const ERR_MIME = 2;
     const ERR_SUBTYPE = 4;

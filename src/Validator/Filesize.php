@@ -42,7 +42,7 @@ class Filesize implements ValidatorInterface {
      * 
      * @var int
      */
-    private $max;
+    protected $max;
     
     /**
      * Constructor

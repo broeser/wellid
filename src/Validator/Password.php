@@ -38,7 +38,7 @@ class Password implements ValidatorInterface {
      * 
      * @var string
      */
-    private $hash;
+    protected $hash;
     
     /**
      * Constructor

@@ -38,7 +38,7 @@ class Min implements ValidatorInterface {
      * 
      * @var float|int
      */
-    private $min;
+    protected $min;
     
     /**
      * Constructor
@@ -64,7 +64,7 @@ class Min implements ValidatorInterface {
         if(!is_numeric($value)) {
             throw new DataType('value', 'number', $value);
         }
-        
+                
         if($value < $this->min) {
             return new ValidationResult(false, sprintf('Value has to be above %d', $this->min));
         }        
