@@ -41,5 +41,6 @@ class SanitorWellidEmailExample implements \Wellid\SanitorBridgeInterface, \Well
      */
     public function __construct(\Sanitor\Sanitizer $sanitizer = null) {
         $this->setSanitizer(is_null($sanitizer)?new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL):$sanitizer);
+        $this->addValidator(new \Wellid\Validator\Email());
     }
 }

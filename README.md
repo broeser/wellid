@@ -297,7 +297,7 @@ The following example code can be found in usage_examples.php and examples/Sanit
 
 ```PHP
 <?php
-class SanitorWellidEmailExample implements \Sanitor\SanitizableInterface, \Wellid\ValidatableInterface {
+class SanitorWellidEmailExample implements \Wellid\SanitorBridgeInterface, \Wellid\ValidatableInterface {
     use \Wellid\SanitorBridgeTrait, \Wellid\ValidatableTrait;
 
     /**
@@ -307,6 +307,7 @@ class SanitorWellidEmailExample implements \Sanitor\SanitizableInterface, \Welli
      */
     public function __construct(\Sanitor\Sanitizer $sanitizer = null) {
         $this->setSanitizer(is_null($sanitizer)?new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL):$sanitizer);
+        $this->addValidator(new \Wellid\Validator\Email());
     }
 }
 
