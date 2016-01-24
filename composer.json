@@ -9,6 +9,10 @@
     "suggest": {
         "broeser/sanitor": "Sanitizes input before validating, see SanitorBridgeTrait.php"
     },
+    "require-dev":
+    {
+        "broeser/sanitor": "dev-master"
+    },
     "autoload": {
         "psr-4": {
             "Wellid\\": "src/",

@@ -34,7 +34,7 @@ namespace Wellid;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, Internal\InternalInterface {
+interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, CacheableValidatableInterface {
     /**
      * Returns the Sanitizer
      * 

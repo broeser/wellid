@@ -36,7 +36,7 @@ namespace Wellid;
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 trait SanitorBridgeTrait {
-    use \Sanitor\SanitizableTrait, Internal\InternalTrait;
+    use \Sanitor\SanitizableTrait, CacheableValidatableTrait;
     
     /**
      * Unsafe unsanitized unfiltered unvalidated raw value

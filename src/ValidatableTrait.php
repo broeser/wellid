@@ -32,5 +32,35 @@ namespace Wellid;
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 trait ValidatableTrait {
-    use ValidatorHolderTrait, Internal\InternalTrait;
+    use ValidatorHolderTrait;
+    
+    /**
+     * Validates this against all given Validators
+     * 
+     * @return \Wellid\ValidationResultSet
+     */
+    public function validate() {        
+        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled() && $this->lastValidationResult instanceof ValidationResultSet) {
+            return $this->lastValidationResult;
+        }
+        
+        $validationResultSet = $this->validateValue($this->getValue());
+        
+        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled()) {
+            $this->lastValidationResult = $validationResultSet;
+        }
+            
+        return $validationResultSet;
+    }
+    
+    /**
+     * Validates this against all assigned Validators
+     * 
+     * Returns true if everything passed, false if there was at least one error.
+     * 
+     * @return boolean
+     */
+    public function validateBool() {
+        return $this->validate()->hasPassed();
+    }    
 }

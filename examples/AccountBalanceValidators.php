@@ -31,7 +31,6 @@ namespace WellidUsageExamples;
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 class AccountBalanceValidators extends \Wellid\ValidatorHolder {
-
     public function __construct() {
         $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }

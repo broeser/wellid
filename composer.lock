@@ -4,13 +4,50 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4f579a6a4db243dc07578936e4404f6",
-    "content-hash": "64dbd94728f462dc6d64c46e427d9dc9",
+    "hash": "8e6d43042b71f8717ae618f6744648fe",
+    "content-hash": "43f2a2e2e41c5d1808b8f917c88138b2",
     "packages": [],
-    "packages-dev": [],
+    "packages-dev": [
+        {
+            "name": "broeser/sanitor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/broeser/sanitor.git",
+                "reference": "6754d38ecdfcd383e7bc293d2a5b6c603f3ef654"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/broeser/sanitor/zipball/6754d38ecdfcd383e7bc293d2a5b6c603f3ef654",
+                "reference": "6754d38ecdfcd383e7bc293d2a5b6c603f3ef654",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Sanitor\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Sanitor is a thin wrapper around PHPs sanitization functions filter_…",
+            "keywords": [
+                "filter",
+                "sanitization"
+            ],
+            "time": "2016-01-24 15:05:48"
+        }
+    ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "broeser/sanitor": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

@@ -29,4 +29,27 @@ namespace Wellid;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface ValidatableInterface extends Internal\InternalInterface, ValidatorHolderInterface {}
+interface ValidatableInterface {
+    /**
+     * Validates this against all assigned Validators
+     * 
+     * @return ValidationResultSet
+     */
+    public function validate();
+    
+    /**
+     * Validates this against all assigned Validators
+     * 
+     * Returns true if everything passed, false if there was at least one error.
+     * 
+     * @return boolean
+     */
+    public function validateBool();
+    
+    /**
+     * Returns the value that shall be passed to the assigned validators
+     * 
+     * @return mixed
+     */
+    public function getValue();
+}

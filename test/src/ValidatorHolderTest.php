@@ -30,13 +30,17 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\ValidatorHolder::addValidator
-     * @todo   Implement testAddValidator().
      */
     public function testAddValidator() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getValidators());
+
+        $validator = new Validator\Boolean();
+
+        $this->assertInstanceOf('Wellid\ValidatorHolderInterface', $this->object->addValidator($validator));
+
+        $this->assertCount(1, $this->object->getValidators());
+
+        $this->assertContainsOnlyInstancesOf(get_class($validator), $this->object->getValidators());
     }
 
     /**
