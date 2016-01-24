@@ -26,7 +26,6 @@
 
 namespace Wellid;
 
-use Wellid\Validator\ValidatorInterface;
 /**
  * Interface for everything that can be assigned Validators.
  * 
@@ -36,23 +35,23 @@ interface ValidatorHolderInterface {
     /**
      * Assigns a Validator that shall be used to validate this
      * 
-     * @param ValidatorInterface $validator
-     * @return ValidatableInterface Returns itself for daisy-chaining
+     * @param Validator\ValidatorInterface $validator
+     * @return ValidatorHolderInterface Returns itself for daisy-chaining
      */
-    public function addValidator(ValidatorInterface $validator);
+    public function addValidator(Validator\ValidatorInterface $validator);
         
     /**
      * Assigns several Validators that shall be used to validate this
      * 
-     * @param ValidatorInterface ...$validators
-     * @return ValidatableInterface Returns itself for daisy-chaining
+     * @param Validator\ValidatorInterface ...$validators
+     * @return ValidatorHolderInterface Returns itself for daisy-chaining
      */
-    public function addValidators(ValidatorInterface ...$validators);
+    public function addValidators(Validator\ValidatorInterface  ...$validators);
     
     /**
      * Returns an array of Validators used to validate this
      * 
-     * @return ValidatorInterface[]
+     * @return Validator\ValidatorInterface[]
      */
     public function getValidators();
     

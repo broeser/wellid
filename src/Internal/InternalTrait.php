@@ -34,27 +34,22 @@ namespace Wellid\Internal;
  *           documentation on this topic exists.
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait InternalTrait {
-    /**
-     * ValidationResultSet of the last validation of this
-     * 
-     * @var ValidationResultSet
-     */
-    protected $lastValidationResult = null;
-    
+trait InternalTrait {   
     /**
      * Validates this against all given Validators
      * 
      * @return \Wellid\ValidationResultSet
      */
     public function validate() {        
-        if($this->lastValidationResult instanceof ValidationResultSet) {
+        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled() && $this->lastValidationResult instanceof ValidationResultSet) {
             return $this->lastValidationResult;
         }
-                
-        $this->lastValidationResult = $this->validateValue($this->getValue());
+        
+        $validationResultSet = $this->validateValue($this->getValue());
+        
+        $this->lastValidationResult = $validationResultSet;
             
-        return $this->lastValidationResult;
+        return $validationResultSet;
     }
     
     /**
@@ -66,13 +61,5 @@ trait InternalTrait {
      */
     public function validateBool() {
         return $this->validate()->hasPassed();
-    }
-    
-    /**
-     * Removes the last ValidationResultSet from cache in order to re-validate 
-     * this (usually not necessary)
-     */
-    public function clearValidationResult() {
-        $this->lastValidationResult = null;
     }
 }

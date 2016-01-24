@@ -24,8 +24,6 @@
  */
 namespace Wellid;
 
-use Wellid\Validator\ValidatorInterface;
-
 /**
  * This trait can be used for everything that can be assigned Validators.
  *
@@ -57,9 +55,9 @@ trait ValidatorHolderTrait {
      * Adds a Validator to this
      * 
      * @param ValidatorInterface $validator
-     * @return ValidatableInterface Returns itself for daisy-chaining
+     * @return ValidatorHolderInterface Returns itself for daisy-chaining
      */
-    public function addValidator(ValidatorInterface $validator) {
+    public function addValidator(Validator\ValidatorInterface $validator) {
         $this->validators[get_class($validator)] = $validator;
         
         return $this;
@@ -68,18 +66,20 @@ trait ValidatorHolderTrait {
     /**
      * Assigns several Validators that shall be used to validate this
      * 
-     * @param ValidatorInterface ...$validators
+     * @param Validator\ValidatorInterface ...$validators
+     * @return ValidatorHolderInterface Returns itself for daisy-chaining
      */
-    public function addValidators(ValidatorInterface ...$validators) {
+    public function addValidators(Validator\ValidatorInterface ...$validators) {
         foreach($validators as $validator) {
             $this->addValidator($validator);
         }
+        return $this;
     }
     
     /**
      * Returns an array of Validators used to validate this Field
      * 
-     * @return ValidatorInterface[]
+     * @return Validator\ValidatorInterface[]
      */
     public function getValidators() {
         return $this->validators;

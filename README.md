@@ -8,6 +8,7 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 - wellid should be easy to use and easy to learn
 - It is up to you, how much of the wellid-package you use, you can start with
   small building blocks and use bigger concepts later
+- Extending wellid with your own Validators should be easy 
 
 ## Installation
 
@@ -208,6 +209,25 @@ foreach(array(57.3, -6) as $v) {
     }
 }
 ```
+
+### Caching ValidationResultSets _with CacheableValidatableTrait and CacheableValidatableInterface_
+
+If a lot of Validators are used in validating an object, caching might improve
+performance. In the last chapter each call to validate() or validateBool()
+starts validation anew. To add caching functionality use 
+**CacheableValidatableInterface** instead of ValidatableInterface and 
+**CacheableValidatableTrait** instead of ValidatableTrait. Caching will be
+performed automatically.
+
+If you want to disable caching for a particular instance of 
+CacheableValidatableInterface, you can call **disableValidationCache()**. This
+will also remove a potentially existing ValidationResultSet from the cache of
+that instance.
+
+While rarely useful, you can also force revalidation without disabling the cache.
+Clear the current ValidationResultSet with **clearValidationResult()**, then use
+validate() or validateBool() to get a new ValidationResultSet.
+
 
 ### A collection of Validators _The ValidatorHolder_
 

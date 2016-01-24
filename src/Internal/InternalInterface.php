@@ -52,13 +52,6 @@ interface InternalInterface {
     public function validateBool();
     
     /**
-     * Removes the last ValidationResultSet from cache in order to re-validate 
-     * this (usually not necessary).
-     * If there is no caching of ValidationResultSets, this method may do nothing
-     */
-    public function clearValidationResult();
-    
-    /**
      * Returns the value that shall be passed to the assigned validators
      * 
      * @return mixed
