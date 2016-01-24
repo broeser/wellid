@@ -47,7 +47,9 @@ trait InternalTrait {
         
         $validationResultSet = $this->validateValue($this->getValue());
         
-        $this->lastValidationResult = $validationResultSet;
+        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled()) {
+            $this->lastValidationResult = $validationResultSet;
+        }
             
         return $validationResultSet;
     }
