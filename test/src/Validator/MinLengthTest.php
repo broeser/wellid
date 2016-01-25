@@ -61,15 +61,15 @@ class MinLengthTest extends \PHPUnit_Framework_TestCase {
      */
     public function stringProvider() {
         return array(
-            null => false,
-            4 => false,
-            false => false,
-            'aaaa' => false,
-            'Yellow1' => true,
-            12345678 => true,
-            '87654321' => true,
-            'sdf klöökl sdfsdf' => true,
-            '00123456' => true
+            array(null, false),
+            array(4, false),
+            array(false, false),
+            array('aaaa', false),
+            array('Yellow1', true),
+            array(12345678, true),
+            array('87654321', true),
+            array('sdf klöökl sdfsdf', true),
+            array('00123456', true)
         );
     }
 

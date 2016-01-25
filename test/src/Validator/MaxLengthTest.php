@@ -61,15 +61,15 @@ class MaxLengthTest extends \PHPUnit_Framework_TestCase {
      */
     public function stringProvider() {
         return array(
-            null => true,
-            4 => true,
-            false => true,
-            'aaaa' => true,
-            'Yellow1' => true,
-            12345678 => false,
-            '87654321' => false,
-            'sdf klöökl sdfsdf' => false,
-            '00123456' => false
+            array(null, true),
+            array(4, true),
+            array(false, true),
+            array('aaaa', true),
+            array('Yellow1', true),
+            array(12345678, false),
+            array('87654321', false),
+            array('sdf klöökl sdfsdf', false),
+            array('00123456', false)
         );
     }
 

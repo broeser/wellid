@@ -61,24 +61,24 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
      */
     public function booleanProvider() {
         return array(
-            null => false,
-            'TRUE' => true,
-            'yes' => true,
-            'yeS' => true,
-            1 => true,
-            1.0 => true,
-            1.1 => false,
-            'yeah' => false,
-            'xxx' => false,
-            'FALSE' => true,
-            false => true,
-            true => true,
-            '0.1' => false,
-            0.999 => false,
-            434 => false,
-            'off' => true,
-            'NO' => true,
-            '' => true
+            array(null, false),
+            array('TRUE', true),
+            array('yes', true),
+            array('yeS', true),
+            array(1, true),
+            array(1.0, true),
+            array(1.1, false),
+            array('yeah', false),
+            array('xxx', false),
+            array('FALSE', true),
+            array(false, true),
+            array(true, true),
+            array(0.1, false),
+            array(0.999, false),
+            array(434, false),
+            array('off', true),
+            array('NO', true),
+            array('', true)
         );
     }
 

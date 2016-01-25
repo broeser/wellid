@@ -64,9 +64,9 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
      */
     public function dataProvider() {
         return array(
-            57.3 => true,
-            -6 => false,
-            'foo' => false
+            array(57.3, true),
+            array(-6,  false),
+            array('foo', false)
         );
     }
     
@@ -82,16 +82,14 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
         
         if($expected) {
             $this->assertTrue($result->hasPassed());
-            $this->assertFalse($result->isError());
-            $this->assertEmpty($result->getMessage());
-            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertEquals('passed', (string)$result);
+            $this->assertFalse($result->hasErrors());
+            $this->assertNull($result->firstError());
         } else {
             $this->assertFalse($result->hasPassed());
-            $this->assertTrue($result->isError());
-            $this->assertNotEmpty($result->getMessage());
-            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertNotEquals('passed', (string)$result);
+            $this->assertTrue($result->hasErrors());
+            $this->assertNotEmpty($result->firstError()->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->firstError()->getCode());
+            $this->assertNotEquals('passed', (string)$result->firstError());
         }        
     }
     
