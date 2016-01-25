@@ -87,7 +87,9 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
      */
     public function testArrayAndObjectValidation() {
        $this->assertFalse($this->object->validateBool(array(true)));
-       $this->assertFalse($this->object->validateBool(new \stdClass()));
+       $x = new \stdClass();
+       $x->y = 'z';
+       $this->assertFalse($this->object->validateBool($x));
     }
     
     /**

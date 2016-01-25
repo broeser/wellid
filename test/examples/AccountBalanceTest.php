@@ -149,7 +149,7 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
 
         $this->assertCount(++$curCount, $this->object->getValidators());
 
-        $this->assertContainsOnlyInstancesOf(get_class($validator), $this->object->getValidators());
+        $this->assertContainsOnlyInstancesOf('Wellid\Validator', $this->object->getValidators());
     }
 
     /**
