@@ -66,7 +66,6 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
         return array(
             array(57.3, true),
             array(-6,  false),
-            array('foo', false)
         );
     }
     
@@ -118,6 +117,21 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
     public function testValidateBool($value, $expected) {
         $this->object->setValue($value);
         $this->assertEquals($expected, $this->object->validateBool());
+    }
+    
+    /**
+     * Test if an exception is thrown on non-numeric values
+     * 
+     * @return type
+     */
+    public function testNonNumericData() {
+        $this->object->setValue('foo');
+        try {
+            $this->object->validateBool();
+        } catch (\Wellid\Exception\DataType $ex) {
+            return;
+        }
+        $this->fail('An expected DataType-exception was not thrown');
     }
 
     /**
