@@ -32,6 +32,9 @@ use Wellid\ValidationResult;
 class Boolean implements ValidatorInterface {
     use ValidatorTrait;
     
+    const ERR_OBJECT = 2;
+    const ERR_NOBOOLEAN = 4;
+    
     /**
      * Validates the given $value
      * Checks if it is a valid boolean
@@ -40,8 +43,13 @@ class Boolean implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
+        // Sadly php bug #67167 makes this line necessary
+        if(is_object($value)) {
+            return new ValidationResult(false, 'Not a valid boolean but an object', self::ERR_OBJECT);
+        }
+        
         if(filter_var($value, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE)===null) {
-            return new ValidationResult(false, 'Not a valid boolean');
+            return new ValidationResult(false, 'Not a valid boolean', self::ERR_NOBOOLEAN);
         }        
         return new ValidationResult(true);
     }
