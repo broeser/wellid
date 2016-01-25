@@ -54,7 +54,7 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetMessage() {
         $this->assertTrue(is_string($this->object->getMessage()));
-        $this->assertEquals('passed', $this->object->getMessage());
+        $this->assertEmpty($this->object->getMessage());
     }
 
     /**
