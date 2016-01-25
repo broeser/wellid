@@ -30,6 +30,7 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\ValidatorHolder::addValidator
+     * @covers Wellid\ValidatorHolder::getValidators
      */
     public function testAddValidator() {
         $this->assertEmpty($this->object->getValidators());
@@ -45,35 +46,47 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\ValidatorHolder::addValidators
-     * @todo   Implement testAddValidators().
+     * @depends testAddValidator
      */
     public function testAddValidators() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEmpty($this->object->getValidators());
+
+        $this->assertInstanceOf('Wellid\ValidatorHolderInterface', $this->object->addValidators(new Validator\Boolean(), new Validator\MIME('text/plain'), new Validator\MinLength(3)));
+
+        $this->assertCount(3, $this->object->getValidators());
+
+        $this->assertContainsOnlyInstancesOf('Wellid\Validator\ValidatorInterface', $this->object->getValidators());
     }
 
     /**
-     * @covers Wellid\ValidatorHolder::getValidators
-     * @todo   Implement testGetValidators().
+     * Dataprovider for testValidateValue
+     * 
+     * @return array
      */
-    public function testGetValidators() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function dataProvider() {
+        return array(false, null, PHP_EOL, 14, 0.009, -10000, 'ABC', '   ', '', array(), new \stdClass());
     }
-
+    
     /**
      * @covers Wellid\ValidatorHolder::validateValue
-     * @todo   Implement testValidateValue().
+     * @dataProvider dataProvider
+     * @depends testAddValidators
+     * @param mixed $value
      */
-    public function testValidateValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidateValue($value) {
+        $this->assertEmpty($this->object->getValidators());
+        
+        $v1 = $this->object->validateValue($value);
+        $this->assertInstanceOf('Wellid\ValidationResultSet', $v1);
+        $this->assertTrue($v1->hasPassed());
+        $this->assertNull($v1->firstError());
+        
+        $this->object->addValidators(new Validator\Float(), new Validator\Min(0));
+        
+        $v2 = $this->object->validateValue($value);
+        $this->assertInstanceOf('Wellid\ValidationResultSet', $v2);
+        $this->assertFalse($v2->hasPassed());
+        $this->assertInstanceOf('Wellid\ValidationResult', $v2->firstError());
     }
 
 }

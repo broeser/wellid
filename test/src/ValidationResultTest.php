@@ -30,13 +30,9 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\ValidationResult::__toString
-     * @todo   Implement test__toString().
      */
     public function test__toString() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals('passed', $this->object->__toString());
     }
 
     /**
@@ -58,6 +54,7 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase {
      */
     public function testGetMessage() {
         $this->assertTrue(is_string($this->object->getMessage()));
+        $this->assertEquals('passed', $this->object->getMessage());
     }
 
     /**
