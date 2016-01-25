@@ -66,21 +66,21 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
      */
     public function testAddSet() {
         $this->object->addSet(new ValidationResultSet());
-        $this->assertCount(0, $this->object->count());
+        $this->assertEquals(0, $this->object->count());
         
         $set = new ValidationResultSet();
         $set->add(new ValidationResult(true));
         $set->add(new ValidationResult(true));
         $this->object->addSet($set);
         $this->assertTrue($this->object->hasPassed());
-        $this->assertCount(2, $this->object->count());
+        $this->assertEquals(2, $this->object->count());
         
         $set2 = new ValidationResultSet();
         $set2->add(new ValidationResult(false, 'test error message'));
         $set2->add(new ValidationResult(true));
         $this->object->addSet($set2);
         $this->assertFalse($this->object->hasPassed());
-        $this->assertCount(4, $this->object->count());
+        $this->assertEquals(4, $this->object->count());
         
         $set3 = new ValidationResultSet();
         $set3->add(new ValidationResult(false, 'another message'));
@@ -109,10 +109,10 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testCount().
      */
     public function testCount() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertCount(0, $this->object);
+        $this->object->add(new ValidationResult(true));
+        $this->object->add(new ValidationResult(true));
+        $this->assertCount(2, $this->object);
     }
 
 }
