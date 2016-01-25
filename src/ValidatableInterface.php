@@ -29,7 +29,7 @@ namespace Wellid;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface ValidatableInterface {
+interface ValidatableInterface extends ValidatorHolderInterface {
     /**
      * Validates this against all assigned Validators
      * 
