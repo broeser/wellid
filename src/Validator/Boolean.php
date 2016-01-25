@@ -33,7 +33,8 @@ class Boolean implements ValidatorInterface {
     use ValidatorTrait;
     
     const ERR_OBJECT = 2;
-    const ERR_NOBOOLEAN = 4;
+    const ERR_NULL = 4;
+    const ERR_NOBOOLEAN = 8;
     
     /**
      * Validates the given $value
@@ -43,7 +44,10 @@ class Boolean implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
-        // Sadly php bug #67167 makes this line necessary
+        // Sadly php bug #67167 makes the following lines necessary
+        if(is_null($value)) {
+            return new ValidationResult(false, 'Not a valid boolean but NULL', self::ERR_NULL);
+        }
         if(is_object($value)) {
             return new ValidationResult(false, 'Not a valid boolean but an object', self::ERR_OBJECT);
         }
