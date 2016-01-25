@@ -50,13 +50,28 @@ class EmailTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\Email::validate
-     * @todo   Implement testValidate().
+     * @dataProvider emailProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidate($value, $expected) {
+        $result = $this->object->validate($value);
+        
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+                
+        if($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string)$result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string)$result);
+        }
     }
 
     /**

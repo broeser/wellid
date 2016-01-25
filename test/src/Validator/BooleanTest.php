@@ -30,24 +30,68 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\Boolean::validate
-     * @todo   Implement testValidate().
+     * @dataProvider booleanProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidate($value, $expected) {
+        $result = $this->object->validate($value);
+        
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+                
+        if($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string)$result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string)$result);
+        }
     }
 
     /**
-     * @covers Wellid\Validator\Boolean::validateBool
-     * @todo   Implement testValidateBool().
+     * Dataprovider for testValidate and testValidateBool
+     * 
+     * @return array()
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+    public function booleanProvider() {
+        return array(
+            null => false,
+            'TRUE' => true,
+            'yes' => true,
+            'yeS' => true,
+            1 => true,
+            1.0 => true,
+            1.1 => false,
+            'yeah' => false,
+            'xxx' => false,
+            'FALSE' => true,
+            false => true,
+            true => true,
+            '0.1' => false,
+            0.999 => false,
+            434 => false,
+            'off' => true,
+            'NO' => true,
+            '' => true,
+            array() => false,
+            new \stdClass() => false
         );
+    }    
+    
+    /**
+     * @covers Wellid\Validator\Boolean::validateBool
+     * @dataProvider booleanProvider
+     * @param mixed $value
+     * @param boolean $expected
+     */
+    public function testValidateBool($value, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool($value));
     }
 
 }
