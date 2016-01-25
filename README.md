@@ -5,7 +5,6 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 [![Build Status](https://travis-ci.org/broeser/wellid.svg?branch=master)](https://travis-ci.org/broeser/wellid)
 [![codecov.io](https://codecov.io/github/broeser/wellid/coverage.svg?branch=master)](https://codecov.io/github/broeser/wellid?branch=master)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
-[![Latest Stable Version](https://img.shields.io/packagist/v/broeser/wellid.svg)](https://packagist.org/packages/broeser/wellid)
 [![SemVer 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
 
 
@@ -20,7 +19,7 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 
 The package is called broeser/wellid and can be installed via composer:
 
-composer require broeser/wellid
+``composer require broeser/wellid``
 
 ## How to use
 
