@@ -78,11 +78,17 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
             434 => false,
             'off' => true,
             'NO' => true,
-            '' => true,
-            array() => false,
-            new \stdClass() => false
+            '' => true
         );
     }    
+    
+    /**
+     * 
+     */
+    public function testArrayAndObjectValidation() {
+       $this->assertFalse($this->object->validateBool(array(true)));
+       $this->assertFalse($this->object->validateBool(new \stdClass()));
+    }
     
     /**
      * @covers Wellid\Validator\Boolean::validateBool
