@@ -36,21 +36,21 @@ class MaxLengthTest extends \PHPUnit_Framework_TestCase {
      */
     public function testValidate($value, $expected) {
         $result = $this->object->validate($value);
-        
+
         $this->assertInstanceOf('Wellid\ValidationResult', $result);
-                
-        if($expected) {
+
+        if ($expected) {
             $this->assertTrue($result->hasPassed());
             $this->assertFalse($result->isError());
             $this->assertEmpty($result->getMessage());
             $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertEquals('passed', (string)$result);
+            $this->assertEquals('passed', (string) $result);
         } else {
             $this->assertFalse($result->hasPassed());
             $this->assertTrue($result->isError());
             $this->assertNotEmpty($result->getMessage());
             $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertNotEquals('passed', (string)$result);
+            $this->assertNotEquals('passed', (string) $result);
         }
     }
 
@@ -72,7 +72,7 @@ class MaxLengthTest extends \PHPUnit_Framework_TestCase {
             '00123456' => false
         );
     }
-    
+
     /**
      * @covers Wellid\Validator\MaxLength::validateBool
      * @dataProvider stringProvider

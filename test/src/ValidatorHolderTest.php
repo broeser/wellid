@@ -66,7 +66,7 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
     public function dataProvider() {
         return array(false, null, PHP_EOL, 14, 0.009, -10000, 'ABC', '   ', '', array(), new \stdClass());
     }
-    
+
     /**
      * @covers Wellid\ValidatorHolder::validateValue
      * @dataProvider dataProvider
@@ -75,14 +75,14 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
      */
     public function testValidateValue($value) {
         $this->assertEmpty($this->object->getValidators());
-        
+
         $v1 = $this->object->validateValue($value);
         $this->assertInstanceOf('Wellid\ValidationResultSet', $v1);
         $this->assertTrue($v1->hasPassed());
         $this->assertNull($v1->firstError());
-        
+
         $this->object->addValidators(new Validator\Float(), new Validator\Min(0));
-        
+
         $v2 = $this->object->validateValue($value);
         $this->assertInstanceOf('Wellid\ValidationResultSet', $v2);
         $this->assertFalse($v2->hasPassed());

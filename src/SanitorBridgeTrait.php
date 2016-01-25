@@ -68,6 +68,8 @@ trait SanitorBridgeTrait {
      */
     public function setSanitizer(\Sanitor\Sanitizer $sanitizer) {
         $this->sanitizer = $sanitizer;
+        
+        return $this;
     }
 
     /**
@@ -125,4 +127,15 @@ trait SanitorBridgeTrait {
     public function getRawValue() {
         return $this->rawValue;
     }    
+    
+    /**
+     * Adds a SanitorMatchValidator
+     * 
+     * @return ValidatableInterface
+     */
+    public function addSanitorMatchValidator() {
+        $this->addValidator(new Validator\SanitorMatch($this));
+        
+        return $this;
+    }
 }

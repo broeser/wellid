@@ -36,21 +36,21 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
      */
     public function testValidate($value, $expected) {
         $result = $this->object->validate($value);
-        
+
         $this->assertInstanceOf('Wellid\ValidationResult', $result);
-                
-        if($expected) {
+
+        if ($expected) {
             $this->assertTrue($result->hasPassed());
             $this->assertFalse($result->isError());
             $this->assertEmpty($result->getMessage());
             $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertEquals('passed', (string)$result);
+            $this->assertEquals('passed', (string) $result);
         } else {
             $this->assertFalse($result->hasPassed());
             $this->assertTrue($result->isError());
             $this->assertNotEmpty($result->getMessage());
             $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
-            $this->assertNotEquals('passed', (string)$result);
+            $this->assertNotEquals('passed', (string) $result);
         }
     }
 
@@ -80,18 +80,18 @@ class BooleanTest extends \PHPUnit_Framework_TestCase {
             'NO' => true,
             '' => true
         );
-    }    
-    
+    }
+
     /**
      * 
      */
     public function testArrayAndObjectValidation() {
-       $this->assertFalse($this->object->validateBool(array(true)));
-       $x = new \stdClass();
-       $x->y = 'z';
-       $this->assertFalse($this->object->validateBool($x));
+        $this->assertFalse($this->object->validateBool(array(true)));
+        $x = new \stdClass();
+        $x->y = 'z';
+        $this->assertFalse($this->object->validateBool($x));
     }
-    
+
     /**
      * @covers Wellid\Validator\Boolean::validateBool
      * @dataProvider booleanProvider

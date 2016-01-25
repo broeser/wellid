@@ -1,4 +1,5 @@
 <?php
+
 /*
  * The MIT License
  *
@@ -22,53 +23,47 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Wellid;
+
+namespace Wellid\Validator;
+use Wellid\ValidationResult;
+
 
 /**
- * Interface for data objects that shall be used with both Sanitor and wellid
- * 
- * Sanitor is a wrapper around PHP's filter_-functions and can be used to 
- * sanitize user input or other data.
- * 
- * Refer to README.md for usage instructions!
+ * Description of SanitorMatch
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, CacheableValidatableInterface {
-    /**
-     * Returns the Sanitizer
-     * 
-     * @return \Sanitor\Sanitizer
-     */
-    public function getSanitizer();
+class SanitorMatch implements ValidatorInterface {
+    use ValidatorTrait;
     
     /**
-     * Sets the Sanitizer
+     * \Sanitor\SanitizableInterface $sanitizable
      * 
-     * @param \Sanitor\Sanitizer $sanitizer
-     * @return ValidatableInterface
+     * @var type 
      */
-    public function setSanitizer(\Sanitor\Sanitizer $sanitizer);
+    private $sanitizable;
+    
+    /**
+     * Constructor
+     * 
+     * @param \Sanitor\SanitizableInterface $sanitizable
+     */
+    public function __construct(\Sanitor\SanitizableInterface $sanitizable) {
+        $this->sanitizable = $sanitizable;
+    }
+    
+    /**
+     * Validates the given $value
+     * Checks if it differs from the unsanitized/unfiltered input
+     * 
+     * @param string $value
+     * @return ValidationResult
+     */
+    public function validate($value) {
+        if($this->sanitizable->getRawValue()===$value) {
+            return new ValidationResult(true);
+        }
         
-    /**
-     * Obtains a raw value from GET/POST/COOKIE/… and saves it into $this->rawValue
-     * 
-     * @param int $type INPUT_POST, INPUT_GET, INPUT_COOKIE, INPUT_SERVER, INPUT_ENV, INPUT_REQUEST or INPUT_SESSION
-     * @param string $variableName
-     */
-    public function rawValueFromInput($type, $variableName);
-    
-    /**
-     * Sets the raw value
-     * 
-     * @param mixed $rawValue
-     */
-    public function setRawValue($rawValue);
-    
-    /**
-     * Adds a SanitorMatchValidator
-     * 
-     * @return ValidatableInterface
-     */
-    public function addSanitorMatchValidator();
+        return new ValidationResult(false, 'The given value contains illegal characters');
+    }
 }

@@ -341,6 +341,34 @@ if($emailValidator->validate()->hasPassed()) {
 }
 ```
 
+Imagine you are expecting an integer as value, but the user enters `65{` instead.
+Depending on your business logic, two different cases are possible:
+ 
+ 1. Ignore the { and assume 65, continue working with 65. Optionally notify the
+    user of this – this makes sense if there is an undo anyway and you don't
+    want to annoy your users with error messages.
+ 2. Return an error message and ask for the value again – this makes sense if
+    the user is not expected to notice/fix the mistake, or if valid data is
+    more important than user experience
+
+The first case is already possible with the example above. For the second case,
+just add a **SanitorMatch**-Validator to your object before starting validation.
+The SanitorMatch-Validator expects the validatable object itself. It uses
+"The given value contains illegal characters" as error message, if validation
+fails.
+
+```PHP
+<?php
+$emailValidator->addValidator(new \Wellid\Validator\SanitorMatch($emailValidator);
+```
+
+Luckily there is a shorter way to accomplish the same with 
+**addSanitorMatchValidator()**:
+```PHP
+<?php
+$emailValidator->addSanitorMatchValidator();
+```
+
 ### Exceptions
 
 Feel free to use the Exception-classes supplied with wellid in any validation
