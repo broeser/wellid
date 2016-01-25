@@ -29,7 +29,7 @@ use Wellid\ValidationResult;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-class Float implements ValidatorInterface {
+class FloatingPoint implements ValidatorInterface {
     use ValidatorTrait;
     
     /**

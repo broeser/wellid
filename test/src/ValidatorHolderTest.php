@@ -81,7 +81,7 @@ class ValidatorHolderTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($v1->hasPassed());
         $this->assertNull($v1->firstError());
 
-        $this->object->addValidators(new Validator\Float(), new Validator\Min(0));
+        $this->object->addValidators(new Validator\FloatingPoint(), new Validator\Min(0));
 
         $v2 = $this->object->validateValue($value);
         $this->assertInstanceOf('Wellid\ValidationResultSet', $v2);

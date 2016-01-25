@@ -5,6 +5,8 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 [![Build Status](https://travis-ci.org/broeser/wellid.svg?branch=master)](https://travis-ci.org/broeser/wellid)
 [![codecov.io](https://codecov.io/github/broeser/wellid/coverage.svg?branch=master)](https://codecov.io/github/broeser/wellid?branch=master)
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![Latest Stable Version](https://img.shields.io/packagist/v/broeser/wellid.svg)](https://packagist.org/packages/broeser/wellid)
+[![SemVer 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)]
 
 
 ## Goals
@@ -63,7 +65,7 @@ These are the validators supplied with wellid by default:
  - Date
  - Email
  - Filesize _(experimental)_
- - Float
+ - FloatingPoint
  - IPAddress
  - Integer
  - MacAddress
@@ -176,7 +178,7 @@ class AccountBalance implements \Wellid\ValidatableInterface {
     protected $value = null;
 
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
+        $this->addValidators(new \Wellid\Validator\FloatingPoint(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
     
     /**
@@ -259,7 +261,7 @@ addValidator or addValidators from anywhere.)
 <?php
 class AccountBalanceValidators extends \Wellid\ValidatorHolder {
     public function __construct() {
-        $this->addValidators(new \Wellid\Validator\Float(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
+        $this->addValidators(new \Wellid\Validator\FloatingPoint(), new \Wellid\Validator\Min(0), new \Wellid\Validator\Max(830));
     }
 }
 
