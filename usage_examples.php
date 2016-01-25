@@ -108,11 +108,11 @@ if(!class_exists('\Sanitor\Sanitizer')) {
 $emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
 $emailValidator->setRawValue('mail@benedictroeser.de');
 if($emailValidator->validate()->hasErrors()) {
-    print('Why! Oh why! Errors everywhere!');
+    print('Why! Oh why! Errors everywhere!'.PHP_EOL);
 }
 
 // values can also be optained from INPUT_GET, INPUT_POST, etc.:
 $emailValidator->rawValueFromInput(INPUT_REQUEST, 'email');
 if($emailValidator->validate()->hasPassed()) {
-    print('Nice, this input has been valid: '.$emailValidator->getValue());
+    print('Nice, this input has been valid: '.$emailValidator->getValue().PHP_EOL);
 }
