@@ -4,7 +4,7 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 
 [![Build Status](https://travis-ci.org/broeser/wellid.svg?branch=master)](https://travis-ci.org/broeser/wellid)
 [![codecov.io](https://codecov.io/github/broeser/wellid/coverage.svg?branch=master)](https://codecov.io/github/broeser/wellid?branch=master)
-[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
 [![SemVer 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
 
 
