@@ -2,6 +2,10 @@
 
 wellid is a set of PHP validators and a few loosely coupled components for validation.
 
+[![Build Status](https://travis-ci.org/broeser/wellid.svg?branch=master)](https://travis-ci.org/broeser/wellid)
+[![codecov.io](https://codecov.io/github/broeser/wellid/coverage.svg?branch=master)](https://codecov.io/github/broeser/wellid?branch=master)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
+
 
 ## Goals
 
@@ -378,6 +382,12 @@ context you want to.
  - DataType
  - NotFound
 
+## Contributing?
+
+Yes, please!
+
+Please note that this project is released with a Contributor Code of Conduct. 
+By participating in this project you agree to abide by its terms.
 
 ## wellid?
 
