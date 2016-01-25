@@ -37,7 +37,7 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('WellidUsageExamples\AccountBalance', $obj);
         $this->assertInternalType('float', $obj->getValue());
         $this->assertEquals($floatValue, $obj->getValue());
-        $this->assertGreaterThan(0, $obj->getValidators());
+        $this->assertGreaterThan(0, count($obj->getValidators()));
     }
 
     /**
@@ -140,13 +140,14 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
      * @covers Wellid\ValidatorHolder::getValidators
      */
     public function testAddValidator() {
-        $this->assertEmpty($this->object->getValidators());
+        $curCount = count($this->object->getValidators());
+        $this->assertGreaterThan(0, $curCount);
 
         $validator = new Validator\Boolean();
 
         $this->assertInstanceOf('Wellid\ValidatorHolderInterface', $this->object->addValidator($validator));
 
-        $this->assertCount(1, $this->object->getValidators());
+        $this->assertCount(++$curCount, $this->object->getValidators());
 
         $this->assertContainsOnlyInstancesOf(get_class($validator), $this->object->getValidators());
     }
@@ -156,11 +157,12 @@ class AccountBalanceTest extends \PHPUnit_Framework_TestCase {
      * @depends testAddValidator
      */
     public function testAddValidators() {
-        $this->assertEmpty($this->object->getValidators());
+        $curCount = count($this->object->getValidators());
+        $this->assertGreaterThan(0, $curCount);
 
         $this->assertInstanceOf('Wellid\ValidatorHolderInterface', $this->object->addValidators(new Validator\Boolean(), new Validator\MIME('text/plain'), new Validator\MinLength(3)));
 
-        $this->assertCount(3, $this->object->getValidators());
+        $this->assertCount($curCount+3, $this->object->getValidators());
 
         $this->assertContainsOnlyInstancesOf('Wellid\Validator\ValidatorInterface', $this->object->getValidators());
     }
