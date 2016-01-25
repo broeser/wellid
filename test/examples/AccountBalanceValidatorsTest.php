@@ -27,5 +27,10 @@ class AccountBalanceValidatorsTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
+    
+    public function testValidatorSetup() {
+        $this->assertGreaterThan(0, $this->object->getValidators());
+        $this->assertContainsOnlyInstancesOf('Wellid\Validator', $this->object->getValidators());
+    }
 
 }
