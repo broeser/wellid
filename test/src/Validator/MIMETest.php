@@ -36,7 +36,7 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
     public function filenameProvider() {
        return array(
            array('LICENSE', true),
-           array('README.md', true),
+           //array('README.md', true),
            array('test/configuration.xml', false)
        ); 
     }

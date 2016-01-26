@@ -82,9 +82,6 @@ class MIME implements ValidatorInterface {
             
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);            
         $mimeType = $fileInfo->file($filename);
-        var_dump($fileInfo);
-        var_dump($filename);
-        var_dump($mimeType);
             
         $mimeParts = explode('/', $mimeType);
             
