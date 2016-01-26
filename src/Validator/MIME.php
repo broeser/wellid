@@ -25,7 +25,6 @@
 namespace Wellid\Validator;
 
 use Wellid\ValidationResult;
-use Wellid\Exception\NotFound;
 use Wellid\Exception\DataFormat;
 use Wellid\Exception\DataType;
 /**
@@ -73,20 +72,16 @@ class MIME implements ValidatorInterface {
      * Validates the given $value
      * Checks if it points to a file with the specified MIME type
      * 
-     * @param array $value
+     * @param string $value
      * @return ValidationResult
      */
-    public function validate($value) {
-        if(!is_array($value)) {
-            throw new DataType('value', 'array', $value);
-        }
-        
-        if(!isset($value['tmp_name'])) {
-            throw new NotFound('tmp_name');
+    public function validate($filename) {
+        if(!is_string($filename)) {
+            throw new DataType('value', 'string', $filename);
         }
             
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);            
-        $mimeType = $fileInfo->file($value['tmp_name']);
+        $mimeType = $fileInfo->file($filename);
             
         $mimeParts = explode('/', $mimeType);
             
