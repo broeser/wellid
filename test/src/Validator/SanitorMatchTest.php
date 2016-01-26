@@ -4,6 +4,9 @@ namespace Wellid\Validator;
 
 class TestSanitizable implements \Wellid\SanitorBridgeInterface{
     use \Wellid\SanitorBridgeTrait;
+    public function __construct() {
+        $this->setSanitizer(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
+    }
 }
 
 /**
@@ -28,7 +31,7 @@ class SanitorMatchTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->testSanitizable = new TestSanitizable();
-        $this->object = new SanitorMatch($this->testSanitizable);
+        $this->testSanitizable->addSanitorMatchValidator();
     }
 
     /**
@@ -40,25 +43,51 @@ class SanitorMatchTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Wellid\Validator\SanitorMatch::validate
-     * @todo   Implement testValidate().
+     * Provides values and whether they look the same after sanitization
+     * 
+     * @return array[]
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+    public function dataProvider() {
+        return array(
+            array('mail@benedictroeser.de', true),
+            array('mail@benedi\ctroeser.de', false)
         );
+    }    
+    
+    /**
+     * @covers Wellid\Validator\SanitorMatch::validate
+     * @dataProvider dataProvider
+     * @param mixed $value
+     * @param boolean $expected
+     */
+    public function testValidate($value, $expected) {
+        $this->testSanitizable->setRawValue($value);
+        $result = $this->testSanitizable->validate();
+
+        $this->assertInstanceOf('Wellid\ValidationResultSet', $result);
+
+        if ($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->hasErrors());
+            $this->assertNull($result->firstError());
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->hasErrors());
+            $this->assertNotEmpty($result->firstError()->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->firstError()->getCode());
+            $this->assertNotEquals('passed', (string) $result->firstError());
+        }
     }
 
     /**
      * @covers Wellid\Validator\SanitorMatch::validateBool
-     * @todo   Implement testValidateBool().
+     * @dataProvider dataProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidateBool($value, $expected) {
+        $this->testSanitizable->setRawValue($value);
+        $this->assertEquals($expected, $this->testSanitizable->validateBool());
     }
 
 }
