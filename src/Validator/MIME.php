@@ -72,7 +72,7 @@ class MIME implements ValidatorInterface {
      * Validates the given $value
      * Checks if it points to a file with the specified MIME type
      * 
-     * @param string $value
+     * @param string $filename
      * @return ValidationResult
      */
     public function validate($filename) {

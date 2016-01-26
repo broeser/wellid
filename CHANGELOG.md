@@ -12,6 +12,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Builds are now tested automatically by Travis CI
 - Added CHANGELOG, CONTRIBUTING document and CODE_OF_CONDUCT
 
+### Changed
+- **MIME**-Validator now takes a filename string instead of an array containing
+  this string
+
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL
 - Renamed former Float-Validator to **FloatingPoint**, in order to work on PHP 7
