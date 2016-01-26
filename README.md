@@ -28,7 +28,7 @@ The package is called broeser/wellid and can be installed via composer:
 - **IMPORTANT NOTE:** Never try to validate raw data! Sanitize your data first, 
 then pass it to wellid. Recommended sanitization options are:
   1. Let your framework handle sanitization
-  2. Use Sanitor (composer require broeser/sanitor)
+  2. Use [Sanitor](https://github.com/broeser/sanitor) (composer require broeser/sanitor)
   3. Use PHP's filter_input() and filter_var() methods
 
 ## Using wellid
@@ -302,7 +302,7 @@ foreach(array(57.3, -6) as $v) {
 
 ### Using wellid with Sanitor _– the SanitorBridgeTrait_
 
-[Sanitor]((https://github.com/broeser/sanitor) is a thin wrapper around PHP's 
+[Sanitor](https://github.com/broeser/sanitor) is a thin wrapper around PHP's 
 sanitization functions (filter_var(), filter_input(), etc.). 
 If you want to use Sanitor to sanitize input or arbitrary
 values before validating them with wellid, there is a handy piece of code called
