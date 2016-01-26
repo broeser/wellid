@@ -16,7 +16,8 @@
     "autoload": {
         "psr-4": {
             "Wellid\\": "src/",
-            "WellidUsageExamples\\": "examples/"
+            "WellidUsageExamples\\": "examples/",
+            "Rtablada\\LiteratePhp\\": "literatephp/"
         }
     }
 }
