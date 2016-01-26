@@ -8,6 +8,17 @@ relevant channels.
 Please use a pull request for contributing. You may also open an issue to discuss
 the changes.
 
+
+## Development setup
+
+Install the dev-dependencies:
+
+``composer install``
+
+Make sure you have PHPUnit installed, preferably in the „Current Stable Version“
+or in any version that supports all PHP versions that this project supports.
+
+
 ## Guidelines
 
 Don't feel intimidated by these guidelines. Chances are that your patch will

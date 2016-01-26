@@ -27,27 +27,60 @@ class URLTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
+	
+    /**
+     * URL provider, provides URLs and whether they should be valid
+     * 
+     * @return array[]
+     */
+    public function urlProvider() {
+        return array(
+            array('http://localhost/', true),
+            array('https://example.org', true),
+            array('@@@', false),
+            array('example.info', false),
+			array('mailto:foo@bar.de', true),
+            array(false, false),
+            array(null, false),
+            array('ftp://benedictroeser.de', true),
+            array('http://123.321.123.21/', true)
+        );
+    }
+	
 
     /**
      * @covers Wellid\Validator\URL::validate
-     * @todo   Implement testValidate().
+	 * @dataProvider urlProvider
+	 * @param string $url
+	 * @param boolean $expected
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidate($url, $expected) {
+        $result = $this->object->validate($url);
+
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+
+        if ($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string) $result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string) $result);
+        }
     }
 
     /**
      * @covers Wellid\Validator\URL::validateBool
-     * @todo   Implement testValidateBool().
+	 * @dataProvider urlProvider
+	 * @param string $url
+	 * @param boolean $expected
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
+    public function testValidateBool($url, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool($url));
+	}
 }
