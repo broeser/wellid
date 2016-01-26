@@ -21,14 +21,17 @@ The package is called broeser/wellid and can be installed via composer:
 
 ``composer require broeser/wellid``
 
-## How to use
+## Before you start
 
-**IMPORTANT NOTE:** Never try to validate raw data! Sanitize your data first, 
+- All examples from this manual can be found in [usage_examples.php](usage_examples.php)
+  in the same order as in the manual.
+- **IMPORTANT NOTE:** Never try to validate raw data! Sanitize your data first, 
 then pass it to wellid. Recommended sanitization options are:
+  1. Let your framework handle sanitization
+  2. Use Sanitor (composer require broeser/sanitor)
+  3. Use PHP's filter_input() and filter_var() methods
 
- 1. Let your framework handle sanitization
- 2. Use Sanitor (composer require broeser/sanitor)
- 3. Use PHP's filter_input() and filter_var() methods
+## Using wellid
 
 ### Simple use case _with validateBool()_
 
@@ -120,7 +123,7 @@ two ValidationResultSets with **addSet()**
 
 ValidationResultSets can be count()-ed and iterated over with foreach(). 
 
-**hasErrors()** are useful to check if there are any errors
+**hasErrors()** is useful to check if there are any errors
 in the ValidationResultSet, its counterpart is called **hasPassed()**. You can 
 retrieve the **firstError()**-ValidationResult (if there is any), if everything
 has passed the method will return null.
@@ -136,7 +139,7 @@ $value = 'somethingentered';
  * The validator that shall be used to validate it
  */
 $maxLengthValidator = new Wellid\Validator\MaxLength(7);
-$minLengthValidator = new Wellid\Validator\MaxLength(3);
+$minLengthValidator = new Wellid\Validator\MinLength(3);
 
 $validationResultSet = new Wellid\ValidationResultSet();
 $validationResultSet->add($maxLengthValidator->validate($value));
@@ -299,12 +302,13 @@ foreach(array(57.3, -6) as $v) {
 
 ### Using wellid with Sanitor _– the SanitorBridgeTrait_
 
-Sanitor is a thin wrapper around PHP's sanitization functions (filter_var(), 
-filter_input(), etc.). If you want to use Sanitor to sanitize input or arbitrary
+[Sanitor]((https://github.com/broeser/sanitor) is a thin wrapper around PHP's 
+sanitization functions (filter_var(), filter_input(), etc.). 
+If you want to use Sanitor to sanitize input or arbitrary
 values before validating them with wellid, there is a handy piece of code called
 the **SanitorBridgeTrait** just for that.
 
-Refer to the README.md in the broeser/sanitor-package for more information.
+Refer to Sanitor's README.md for more information.
 These are the four basic steps necessary to integrate Sanitor and wellid
 
 1. Install the Sanitor package (composer require broeser/sanitor)
@@ -364,7 +368,7 @@ fails.
 
 ```PHP
 <?php
-$emailValidator->addValidator(new \Wellid\Validator\SanitorMatch($emailValidator);
+$emailValidator->addValidator(new \Wellid\Validator\SanitorMatch($emailValidator));
 ```
 
 Luckily there is a shorter way to accomplish the same with 
@@ -387,7 +391,9 @@ context you want to.
 
 Yes, please!
 
-Please note that this project is released with a Contributor Code of Conduct. 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for details and/or open an issue with your questions.
+
+Please note that this project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). 
 By participating in this project you agree to abide by its terms.
 
 ## wellid?
