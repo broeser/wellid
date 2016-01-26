@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 - **CacheableValidatable…** that allow to cache ValidationResultSets
+- **getErrorMessages()** retrieves an array of error message strings from a
+  ValidationResultSet
 - **SanitorMatch**-Validator, checks wheter given input stays the same, when it
   is sanitized
 - Builds are now tested automatically by Travis CI

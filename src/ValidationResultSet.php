@@ -75,6 +75,23 @@ class ValidationResultSet implements \Iterator, \Countable {
     }
     
     /**
+     * Returns an array of error message strings
+     * 
+     * @return string[]
+     */
+    public function getErrorMessages() {
+        $messages = array();
+        
+        foreach($this->entries as $entry) {
+            if($entry->isError()) {
+                $messages[] = $entry->getMessage();
+            }
+        }
+        
+        return $messages;
+    }
+    
+    /**
      * Returns whether there are only passing ValidationResults in this
      * ValidationResultSet
      * 
