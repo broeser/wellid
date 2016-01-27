@@ -11,9 +11,8 @@ the changes.
 
 ## Development setup
 
-Install the dev-dependencies:
-
-``composer install``
+Make sure that you have the dev-dependencies installed. This should happen 
+automatically.
 
 Make sure you have PHPUnit installed, preferably in the „Current Stable Version“
 or in any version that supports all PHP versions that this project supports.
