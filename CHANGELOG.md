@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - **CacheableValidatable…** that allow to cache ValidationResultSets
 - **getErrorMessages()** retrieves an array of error message strings from a
   ValidationResultSet
-- **SanitorMatch**-Validator, checks wheter given input stays the same, when it
+- **SanitorMatch**-Validator, checks whether given input stays the same, when it
   is sanitized
 - Builds are now tested automatically by Travis CI
 - Added CHANGELOG, CONTRIBUTING document and CODE_OF_CONDUCT
@@ -19,7 +19,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL
 - Renamed former Float-Validator to **FloatingPoint**, in order to work on PHP 7
-- **setSanitizeFlags()** 
 
 ## [0.2.0] - 2016-01-23
 ### Added
