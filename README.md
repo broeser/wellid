@@ -17,7 +17,9 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 
 ## Installation
 
-The package is called broeser/wellid and can be installed via composer:
+wellid works with PHP 5.6 and 7.0.
+
+The package can be installed via composer:
 
 ``composer require broeser/wellid``
 
