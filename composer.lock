@@ -14,12 +14,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/broeser/sanitor.git",
-                "reference": "54c1bca7d1c01e44ade53ff540ec983392339dde"
+                "reference": "b2464105b35fbcd383418e4a3586d72ce9a09243"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/broeser/sanitor/zipball/54c1bca7d1c01e44ade53ff540ec983392339dde",
-                "reference": "54c1bca7d1c01e44ade53ff540ec983392339dde",
+                "url": "https://api.github.com/repos/broeser/sanitor/zipball/b2464105b35fbcd383418e4a3586d72ce9a09243",
+                "reference": "b2464105b35fbcd383418e4a3586d72ce9a09243",
                 "shasum": ""
             },
             "require": {
@@ -40,7 +40,7 @@
                 "filter",
                 "sanitization"
             ],
-            "time": "2016-01-25 18:34:21"
+            "time": "2016-01-27 12:48:11"
         }
     ],
     "aliases": [],
