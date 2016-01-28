@@ -110,7 +110,7 @@ if($validationResult->hasPassed()) {
     print('The given value '.$value.' fits our requirements of a maximum length of 7 characters! YAY!'.PHP_EOL);
 } else {
     print('The given value '.$value.' is totally invalid. :-('.PHP_EOL);
-    print('Reason: '.$validationResult->getMessage().' – Error code: '.$validationResult->getCode());
+    print('Reason: '.$validationResult->getMessage().' – Error code: '.$validationResult->getCode().PHP_EOL);
 }
 ```
 
