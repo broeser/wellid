@@ -17,6 +17,8 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
+        $_SESSION['validemail'] = 'mail@benedict\roeser.de';
+        $_SESSION['invalidemail'] = '';
         $this->object = new SanitorWellidEmailExample;
     }
 
@@ -30,13 +32,10 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers WellidUsageExamples\SanitorWellidEmailExample::getSanitizer
-     * @todo   Implement testGetSanitizer().
      */
     public function testGetSanitizer() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals(FILTER_SANITIZE_EMAIL, $this->object->getSanitizer()->getSanitizeFilter());
+        $this->assertEquals(FILTER_NULL_ON_FAILURE, $this->object->getSanitizer()->getSanitizeFlags());
     }
 
     /**
@@ -52,13 +51,19 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers WellidUsageExamples\SanitorWellidEmailExample::rawValueFromInput
-     * @todo   Implement testRawValueFromInput().
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::getRawValue
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::getFilteredValue
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::getValue
      */
     public function testRawValueFromInput() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->object->rawValueFromInput(\INPUT_SESSION, 'validemail');
+        $this->assertEquals('mail@benedict\roeser.de', $this->object->getRawValue());
+        $this->assertEquals('mail@benedictroeser.de', $this->object->getFilteredValue());
+        $this->assertEquals('mail@benedictroeser.de', $this->object->getValue());
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->clearValidationResult();
+        $this->object->rawValueFromInput(\INPUT_SESSION, 'invalidemail');
+        $this->assertFalse($this->object->validate()->hasPassed());
     }
 
     /**
@@ -66,28 +71,6 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testSetRawValue().
      */
     public function testSetRawValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::getFilteredValue
-     * @todo   Implement testGetFilteredValue().
-     */
-    public function testGetFilteredValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::getRawValue
-     * @todo   Implement testGetRawValue().
-     */
-    public function testGetRawValue() {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
                 'This test has not been implemented yet.'
@@ -143,17 +126,6 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testValidateBool().
      */
     public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::getValue
-     * @todo   Implement testGetValue().
-     */
-    public function testGetValue() {
         // Remove the following lines when you implement this test.
         $this->markTestIncomplete(
                 'This test has not been implemented yet.'

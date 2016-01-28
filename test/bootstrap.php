@@ -29,6 +29,7 @@
  */
 // TODO: check include path
 ini_set('include_path', ini_get('include_path').PATH_SEPARATOR.dirname(__FILE__).'/../../../.composer/vendor/phpunit');
-require_once __DIR__.'/../vendor/autoload.php';
 // put your code here
+require_once __DIR__.'/../vendor/autoload.php';
+session_start();
 ?>

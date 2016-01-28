@@ -46,6 +46,15 @@ trait SanitorBridgeTrait {
     private $rawValue;
     
     /**
+     * Internally used Sanitizer-object that does not sanitize at all but uses
+     * FILTER_UNSAFE_RAW. Useful to benefit from Sanitors methods, without
+     * having to actually sanitize anything yet.
+     * 
+     * @var \Sanitor\Sanitizer
+     */
+    private $unsafeRawSanitizer;
+    
+    /**
      * The Sanitizer used to filter the value of this Field
      * 
      * @var \Sanitor\Sanitizer
@@ -94,17 +103,25 @@ trait SanitorBridgeTrait {
             return;
         }
         
+        if(!$this->unsafeRawSanitizer instanceof \Sanitor\Sanitizer) {
+            $this->unsafeRawSanitizer = new \Sanitor\Sanitizer(FILTER_UNSAFE_RAW);
+        }
+                
         switch($type) {
             case INPUT_COOKIE:
+                return $this->setRawValue($this->unsafeRawSanitizer->filterCookie($variableName));
             case INPUT_ENV:
+                return $this->setRawValue($this->unsafeRawSanitizer->filterEnv($variableName));
             case INPUT_GET:
+                return $this->setRawValue($this->unsafeRawSanitizer->filterGet($variableName));
             case INPUT_POST:
+                return $this->setRawValue($this->unsafeRawSanitizer->filterPost($variableName));
             case INPUT_SERVER:
-                $this->setRawValue(filter_input($type, $variableName, FILTER_UNSAFE_RAW));
+                return $this->setRawValue($this->unsafeRawSanitizer->filterServer($variableName));
             case INPUT_REQUEST:
-                $this->setRawValue($_REQUEST[$variableName]);
+                return $this->setRawValue($this->unsafeRawSanitizer->filterRequest($variableName));
             case INPUT_SESSION:
-                $this->setRawValue($_SESSION[$variableName]);
+                return $this->setRawValue($this->unsafeRawSanitizer->filterSession($variableName));
         }
     }
     
