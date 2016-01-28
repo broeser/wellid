@@ -220,7 +220,7 @@ foreach(array(57.3, -6) as $v) {
  */
 
 $emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
-$emailValidator->setRawValue('mail@benedictroeser.de');
+$emailValidator->setRawValue('mail@benedict\roeser.de'); // because the value will be sanitized before validation, this will actually pass! More information in the "65{"-example below
 if($emailValidator->validate()->hasErrors()) {
     print('Why! Oh why! Errors everywhere!'.PHP_EOL);
 }
