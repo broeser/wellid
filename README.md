@@ -26,7 +26,8 @@ The package can be installed via composer:
 ## Before you start
 
 - All examples from this manual can be found in [usage_examples.php](usage_examples.php)
-  in the same order as in the manual.
+  in the same order as in the manual. If an example uses an additional class,
+  that class can be found in the examples/-directory.
 - **IMPORTANT NOTE:** Never try to validate raw data! Sanitize your data first, 
 then pass it to wellid. Recommended sanitization options are:
   1. Let your framework handle sanitization
@@ -159,17 +160,22 @@ if($validationResultSet->hasPassed()) {
 
 If you want to create classes (as opposed to primitive data types) whose instances
 are validateable by wellid, just implement the **ValidatableInterface** in your class
-and use the **ValidatableTrait**. You'll now be able to **addValidators()** to your 
+and use the **ValidatableTrait**. If you prefer abstract classes instead, (e.g.
+if you want to override functionality from ValidatableTrait), extending
+**AbstractValidatable** is the way to go. In either case, Make sure to implement
+ a **getValue()** method to supply the validators with a primitive typed version
+of your object's value. For a Money-class, for example, that might be a float.
+
+You'll now be able to **addValidators()** to your 
 object. You can validate your object with the **validate()** and **validateBool()**
-methods. Make sure to implement a **getValue()** method to supply the validators
-with a primitive version of your object's value.
+methods. 
 
 Note that **validate()** returns a ValidationResultSet and not a ValidationResult
 (see above).
 
-The following example code can be found in usage_examples.php and examples/AccountBalance.php. 
-It uses three validators: The value shall be a floating point number. It shall
-be between 0 (zero) and 830.
+The following example code uses three validators: 
+The value shall be a floating point number. It shall be between 0 (zero) and 
+830.
 
 ```PHP
 <?php
@@ -256,10 +262,9 @@ can use addValidators() or **addValidator()** (for a single validator). Use
 To validate a value with the ValidatorHolder, use the **validateValue()**-method. 
 
 The AccountBalance-example from above becomes much cleaner and easier to 
-understand. The following example code can be found in usage_examples.php and 
-examples/AccountBalanceValidators.php. (Of course you don't have to setup the
-validators in the constructor in your own project, but you can just call
-addValidator or addValidators from anywhere.)
+understand. 
+
+Example:
 
 ```PHP
 <?php
@@ -278,10 +283,12 @@ foreach(array(57.3, -6) as $v) {
     }
 }
 ```
+Of course you don't have to setup the validators in the constructor in your own 
+project, but you can just call addValidator or addValidators from anywhere.
 
 Please note, that there is currently no validateBoolValue()-method for
 ValidatorHolders. If you need the boolean value you can use the syntax
-   validateValue($value)->hasPassed()
+``$validationResultAsBool = $accountBalanceValidators->validateValue($value)->hasPassed();``
 
 Another example shows, how to use ValidatorHolders with data objects. (Both 
 used classes are the same as in the examples above):
@@ -289,7 +296,7 @@ used classes are the same as in the examples above):
 <?php
 /*
  * Example 3b: Using the ValidatorHolderTrait & ValidatorHolderInterface with
- * data objects (see UsageExamples/-directory)
+ * data objects
  */
 $accountBalanceValidators = new \WellidUsageExamples\AccountBalanceValidators();
 foreach(array(57.3, -6) as $v) {
@@ -320,8 +327,6 @@ These are the four basic steps necessary to integrate Sanitor and wellid
 4. Make sure that those classes call $this->setSanitizer(...) somewhere
    before validation (e. g. in the constructor) and set a fitting
    sanitization filter (you can try FILTER_DEFAULT)
-
-The following example code can be found in usage_examples.php and examples/SanitorWellidEmailExample.php. 
 
 ```PHP
 <?php
