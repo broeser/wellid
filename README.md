@@ -251,7 +251,7 @@ Clear the current ValidationResultSet with **clearValidationResult()**, then use
 validate() or validateBool() to get a new ValidationResultSet.
 
 
-### A collection of Validators _The ValidatorHolder_
+### A collection of Validators _– The ValidatorHolder_
 
 The way wellid is designed, you can always add validators directly to your data
 objects. However it might become handy to store a collection of validators
@@ -315,7 +315,7 @@ foreach(array(57.3, -6) as $v) {
 }
 ```
 
-### Using wellid with Sanitor _– the SanitorBridgeTrait_
+### Using wellid with Sanitor _with SanitorBridgeTrait and SanitorBridgeInterface_
 
 [Sanitor](https://github.com/broeser/sanitor) is a thin wrapper around PHP's 
 sanitization functions (filter_var(), filter_input(), etc.). 
