@@ -34,19 +34,12 @@ namespace Wellid;
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, CacheableValidatableInterface {
-    /**
-     * Returns the Sanitizer
-     * 
-     * @return \Sanitor\Sanitizer
-     */
-    public function getSanitizer();
-    
+interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, Cache\CacheableValidatableInterface {
     /**
      * Sets the Sanitizer
      * 
      * @param \Sanitor\Sanitizer $sanitizer
-     * @return ValidatableInterface
+     * @return SanitorBridgeInterface
      */
     public function setSanitizer(\Sanitor\Sanitizer $sanitizer);
         
@@ -68,7 +61,7 @@ interface SanitorBridgeInterface extends \Sanitor\SanitizableInterface, Cacheabl
     /**
      * Adds a SanitorMatchValidator
      * 
-     * @return ValidatableInterface
+     * @return SanitorBridgeInterface
      */
     public function addSanitorMatchValidator();
 }
