@@ -27,7 +27,7 @@ class URLTest extends \PHPUnit_Framework_TestCase {
     protected function tearDown() {
         
     }
-	
+
     /**
      * URL provider, provides URLs and whether they should be valid
      * 
@@ -39,20 +39,19 @@ class URLTest extends \PHPUnit_Framework_TestCase {
             array('https://example.org', true),
             array('@@@', false),
             array('example.info', false),
-			array('mailto:foo@bar.de', true),
+            array('mailto:foo@bar.de', true),
             array(false, false),
             array(null, false),
             array('ftp://benedictroeser.de', true),
             array('http://123.321.123.21/', true)
         );
     }
-	
 
     /**
      * @covers Wellid\Validator\URL::validate
-	 * @dataProvider urlProvider
-	 * @param string $url
-	 * @param boolean $expected
+     * @dataProvider urlProvider
+     * @param string $url
+     * @param boolean $expected
      */
     public function testValidate($url, $expected) {
         $result = $this->object->validate($url);
@@ -76,11 +75,12 @@ class URLTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\URL::validateBool
-	 * @dataProvider urlProvider
-	 * @param string $url
-	 * @param boolean $expected
+     * @dataProvider urlProvider
+     * @param string $url
+     * @param boolean $expected
      */
     public function testValidateBool($url, $expected) {
         $this->assertEquals($expected, $this->object->validateBool($url));
-	}
+    }
+
 }

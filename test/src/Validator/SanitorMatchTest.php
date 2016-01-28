@@ -2,11 +2,14 @@
 
 namespace Wellid\Validator;
 
-class TestSanitizable implements \Wellid\SanitorBridgeInterface{
+class TestSanitizable implements \Wellid\SanitorBridgeInterface {
+
     use \Wellid\SanitorBridgeTrait;
+
     public function __construct() {
         $this->setSanitizer(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
     }
+
 }
 
 /**
@@ -18,7 +21,7 @@ class SanitorMatchTest extends \PHPUnit_Framework_TestCase {
      * @var SanitorMatch
      */
     protected $object;
-    
+
     /**
      *
      * @var \Wellid\SanitorBridgeInterface
@@ -52,8 +55,8 @@ class SanitorMatchTest extends \PHPUnit_Framework_TestCase {
             array('mail@benedictroeser.de', true),
             array('mail@benedi\ctroeser.de', false)
         );
-    }    
-    
+    }
+
     /**
      * @covers Wellid\Validator\SanitorMatch::validate
      * @dataProvider dataProvider

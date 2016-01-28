@@ -34,21 +34,21 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
      * @return array[]
      */
     public function filenameProvider() {
-       return array(
-           array('LICENSE', true),
-           //array('README.md', true),
-           array('test/configuration.xml', false)
-       ); 
+        return array(
+            array('LICENSE', true),
+            //array('README.md', true),
+            array('test/configuration.xml', false)
+        );
     }
-    
+
     /**
      * @covers Wellid\Validator\MIME::validate
-	 * @dataProvider filenameProvider
-	 * @param string $value
-	 * @param boolean $expected
+     * @dataProvider filenameProvider
+     * @param string $value
+     * @param boolean $expected
      */
     public function testValidate($value, $expected) {
-        $result = $this->object->validate(__DIR__.'/../../../'.$value);
+        $result = $this->object->validate(__DIR__ . '/../../../' . $value);
 
         $this->assertInstanceOf('Wellid\ValidationResult', $result);
 
@@ -69,12 +69,12 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\MIME::validateBool
-	 * @dataProvider filenameProvider
-	 * @param string $value
-	 * @param boolean $expected
+     * @dataProvider filenameProvider
+     * @param string $value
+     * @param boolean $expected
      */
     public function testValidateBool($value, $expected) {
-        $this->assertEquals($expected, $this->object->validateBool(__DIR__.'/../../../'.$value));
+        $this->assertEquals($expected, $this->object->validateBool(__DIR__ . '/../../../' . $value));
     }
 
 }

@@ -4,7 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- **CacheableValidatable…** that allow to cache ValidationResultSets
+- **CacheableValidatable…** (in Cache/) that allow to cache ValidationResultSets;
+  available as combination of trait and interface or as abstract class
+- **AbstractValidatable** can be used as an alternative to ValidatableTrait and
+  ValidatableInterface; Extend AbstractValidatable if you prefer an abstract base
+  class, which also allows to override methods of the ValidatableTrait
 - **getErrorMessages()** retrieves an array of error message strings from a
   ValidationResultSet
 - **SanitorMatch**-Validator, checks whether given input stays the same, when it
@@ -19,6 +23,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL
 - Renamed former Float-Validator to **FloatingPoint**, in order to work on PHP 7
+- **rawValueFromInput()** did not work correctly with INPUT_ENV
 
 ## [0.2.0] - 2016-01-23
 ### Added

@@ -24,7 +24,7 @@
  * THE SOFTWARE.
  */
 
-namespace Wellid;
+namespace Wellid\Cache;
 
 /**
  * Interface used for everything that supports being validated and that the
@@ -32,7 +32,7 @@ namespace Wellid;
  * 
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-interface CacheableValidatableInterface extends ValidatableInterface {
+interface CacheableValidatableInterface extends \Wellid\ValidatableInterface {
     /**
      * Removes the last ValidationResultSet from cache in order to re-validate 
      * this (usually not necessary).

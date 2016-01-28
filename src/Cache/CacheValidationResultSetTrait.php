@@ -22,21 +22,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace Wellid;
+namespace Wellid\Cache;
 
 /**
- * Trait used for everything that supports being validated and that the
- * ValidationResultSet is cached
+ * This is not part of the public API.
  * 
+ * @internal Trait used for everything that supports caching a ValidationResultSet.
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
-trait CacheableValidatableTrait {
-    use ValidatableTrait;
-    
+trait CacheValidationResultSetTrait {   
     /**
      * ValidationResultSet of the last validation of this
      * 
-     * @var ValidationResultSet
+     * @var \Wellid\ValidationResultSet
      */
     protected $lastValidationResult = null;
     

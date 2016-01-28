@@ -232,8 +232,14 @@ If a lot of Validators are used in validating an object, caching might improve
 performance. In the last chapter each call to validate() or validateBool()
 starts validation anew. To add caching functionality use 
 **CacheableValidatableInterface** instead of ValidatableInterface and 
-**CacheableValidatableTrait** instead of ValidatableTrait. Caching will be
-performed automatically.
+**CacheableValidatableTrait** instead of ValidatableTrait. If you prefer an
+abstract class over traits and interfaces, extend **AbstractCacheableValidatable**.
+All cache-related functionality can be found in the \Wellid\Cache-namespace.
+
+Like the cacheless variant, CacheableValidatable has to implement the 
+getValue()-method.
+
+Caching will be performed automatically.
 
 If you want to disable caching for a particular instance of 
 CacheableValidatableInterface, you can call **disableValidationCache()**. This
@@ -328,6 +334,9 @@ These are the four basic steps necessary to integrate Sanitor and wellid
    before validation (e. g. in the constructor) and set a fitting
    sanitization filter (you can try FILTER_DEFAULT)
 
+SanitorBridge automatically uses caching. You don't have to clear the cache
+when setting a new rawValue, this will be done automatically.
+
 ```PHP
 <?php
 class SanitorWellidEmailExample implements \Wellid\SanitorBridgeInterface, \Wellid\ValidatableInterface {
@@ -345,7 +354,7 @@ class SanitorWellidEmailExample implements \Wellid\SanitorBridgeInterface, \Well
 }
 
 $emailValidator = new WellidUsageExamples\SanitorWellidEmailExample(new \Sanitor\Sanitizer(FILTER_SANITIZE_EMAIL));
-$emailValidator->setRawValue('mail@benedictroeser.de');
+$emailValidator->setRawValue('mail@benedict\roeser.de'); // because the value will be sanitized before validation, this will actually pass! More information in the "65{"-example below
 if($emailValidator->validate()->hasErrors()) {
     print('Why! Oh why! Errors everywhere!'.PHP_EOL);
 }
@@ -367,9 +376,11 @@ Depending on your business logic, two different cases are possible:
     the user is not expected to notice/fix the mistake, or if valid data is
     more important than user experience
 
-The first case is already possible with the example above. For the second case,
-just add a **SanitorMatch**-Validator to your object before starting validation.
-The SanitorMatch-Validator expects the validatable object itself. It uses
+The first case is the default setting.
+
+For the second case, just add a **SanitorMatch**-Validator to your object before
+starting validation. The SanitorMatch-Validator expects the validatable object 
+itself as parameter on construction. The Validator uses 
 "The given value contains illegal characters" as error message, if validation
 fails.
 
@@ -378,7 +389,7 @@ fails.
 $emailValidator->addValidator(new \Wellid\Validator\SanitorMatch($emailValidator));
 ```
 
-Luckily there is a shorter way to accomplish the same with 
+Luckily there is a shorter way to accomplish the same with the method
 **addSanitorMatchValidator()**:
 ```PHP
 <?php

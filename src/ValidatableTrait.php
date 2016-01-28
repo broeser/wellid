@@ -37,16 +37,16 @@ trait ValidatableTrait {
     /**
      * Validates this against all given Validators
      * 
-     * @return \Wellid\ValidationResultSet
+     * @return ValidationResultSet
      */
     public function validate() {        
-        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled() && $this->lastValidationResult instanceof ValidationResultSet) {
+        if($this instanceof Cache\CacheableValidatableInterface && $this->isValidationCacheEnabled() && $this->lastValidationResult instanceof ValidationResultSet) {
             return $this->lastValidationResult;
         }
         
         $validationResultSet = $this->validateValue($this->getValue());
         
-        if($this instanceof \Wellid\CacheableValidatableInterface && $this->isValidationCacheEnabled()) {
+        if($this instanceof Cache\CacheableValidatableInterface && $this->isValidationCacheEnabled()) {
             $this->lastValidationResult = $validationResultSet;
         }
             
