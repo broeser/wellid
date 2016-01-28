@@ -36,7 +36,7 @@ namespace Wellid;
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
 trait SanitorBridgeTrait {
-    use \Sanitor\SanitizableTrait, CacheableValidatableTrait;
+    use \Sanitor\SanitizableTrait, Cache\CacheableValidatableTrait;
     
     /**
      * Unsafe unsanitized unfiltered unvalidated raw value
@@ -97,6 +97,7 @@ trait SanitorBridgeTrait {
      * @param string $variableName
      */
     public function rawValueFromInput($type, $variableName) {
+        $this->clearValidationResult();
         $this->rawValue = null;
         
         if(!$this->getSanitizer()->filterHas($type, $variableName)) {
@@ -131,6 +132,7 @@ trait SanitorBridgeTrait {
      * @param mixed $rawValue
      */
     public function setRawValue($rawValue) {
+        $this->clearValidationResult();
         $this->rawValue = $rawValue;
     }
     
