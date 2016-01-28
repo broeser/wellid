@@ -61,7 +61,6 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals('mail@benedictroeser.de', $this->object->getFilteredValue());
         $this->assertEquals('mail@benedictroeser.de', $this->object->getValue());
         $this->assertTrue($this->object->validate()->hasPassed());
-        $this->object->clearValidationResult();
         $this->object->rawValueFromInput(\INPUT_SESSION, 'invalidemail');
         $this->assertFalse($this->object->validate()->hasPassed());
     }
