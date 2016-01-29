@@ -28,8 +28,7 @@ use Wellid\ValidationResult;
 use Wellid\Exception\DataFormat;
 use Wellid\Exception\DataType;
 /**
- * Checks the MIME type of an uploaded file, expects the $_FILES['filename']
- * array (or a similarily-formed array) as input
+ * Checks the MIME type of file, takes a filename as input
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
@@ -85,8 +84,12 @@ class MIME implements ValidatorInterface {
         }
             
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);            
-        $mimeType = $fileInfo->file($filename);
-        
+        try {
+            $mimeType = @$fileInfo->file($filename);
+        } catch (Exception $ex) {
+            $mimeType = false;
+        }
+                
         if($mimeType===false) {
             throw new \Wellid\Exception\FileNotFound($filename, 'file for MIME validator');
         }

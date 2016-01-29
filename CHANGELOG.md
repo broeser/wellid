@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- **FloatingPoint**-Validator now supports optional decimal separator parameter
+  in constructor
 - **CacheableValidatable…** (in Cache/) that allow to cache ValidationResultSets;
   available as combination of trait and interface or as abstract class
 - **AbstractValidatable** can be used as an alternative to ValidatableTrait and
@@ -13,12 +15,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   ValidationResultSet
 - **SanitorMatch**-Validator, checks whether given input stays the same, when it
   is sanitized
+- **FileNotFound**-Exception that extends the NotFound-exception
 - Builds are now tested automatically by Travis CI
 - Added CHANGELOG, CONTRIBUTING document and CODE_OF_CONDUCT
 
 ### Changed
 - **MIME**-Validator now takes a filename string instead of an array containing
   this string
+- **Filesize**-Validator now takes a filename string instead of an array containing
+  the size of the file
 
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL

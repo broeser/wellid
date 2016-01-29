@@ -17,7 +17,7 @@ class FilesizeTest extends \PHPUnit_Framework_TestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new Filesize(2048);
+        $this->object = new Filesize(1680);
     }
 
     /**
@@ -29,25 +29,104 @@ class FilesizeTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Wellid\Validator\Filesize::validate
-     * @todo   Implement testValidate().
+     * Provides filenames and whether they have the 
+     * 
+     * @return array[]
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+    public function filenameProvider() {
+        return array(
+            array('LICENSE', true),
+            //array('README.md', true),
+            array('test/configuration.xml', false)
         );
     }
 
     /**
-     * @covers Wellid\Validator\Filesize::validateBool
-     * @todo   Implement testValidateBool().
+     * @covers Wellid\Validator\Filesize::validate
+     * @dataProvider filenameProvider
+     * @param string $value
+     * @param boolean $expected
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidate($value, $expected) {
+        $result = $this->object->validate(__DIR__ . '/../../../' . $value);
+
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+
+        if ($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string) $result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string) $result);
+        }
+    }
+
+    /**
+     * @covers Wellid\Validator\Filesize::validateBool
+     * @dataProvider filenameProvider
+     * @param string $value
+     * @param boolean $expected
+     */
+    public function testValidateBool($value, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool(__DIR__ . '/../../../' . $value));
+    }
+    
+    /**
+     * @covers Wellid\Validator\Filesize::__construct
+     * @covers Wellid\Validator\Filesize::validate
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new Filesize(-100);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            new Filesize('1000');
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            $x = new Filesize(1000);
+            $x->validate(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            $x = new Filesize(1000);
+            $x->validate('readme.ini');
+        } catch (\Wellid\Exception\FileNotFound $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
     }
 
 }

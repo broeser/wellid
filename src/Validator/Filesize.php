@@ -29,8 +29,7 @@ use Wellid\Exception\NotFound;
 use Wellid\Exception\DataType;
 
 /**
- * Checks the file size of an uploaded file, expects the $_FILES['filename']
- * array (or a similarily-formed array) as input
+ * Checks the file size of a file, takes a filename as input
  *
  * @author Benedict Roeser <b-roeser@gmx.net>
  */
@@ -50,6 +49,10 @@ class Filesize implements ValidatorInterface {
      * @param int $max Maximum filesize in bytes
      */
     public function __construct($max) {
+        if(!is_int($max) || $max < 0) {
+            throw new DataType('max', 'positive integer', $max);
+        }
+        
         $this->max = $max;
     }
     
@@ -57,19 +60,25 @@ class Filesize implements ValidatorInterface {
      * Validates the given $value
      * Checks if the file it points to has a valid size
      * 
-     * @param array $value
+     * @param string $value Filename
      * @return ValidationResult
      */
     public function validate($value) {
-        if(!is_array($value)) {
-            throw new DataType('value', 'array', $value);
+        if(!is_string($value)) {
+            throw new DataType('value', 'string', $value);
         }
         
-        if(!isset($value['size'])) {
-            throw new NotFound('size', $value);
+        try {
+            $filesize = @filesize($value);            
+        } catch (Exception $ex) {
+            $filesize = false;
         }
 
-        if($value['size']>$this->max) {
+        if($filesize===false) {
+            throw new \Wellid\Exception\FileNotFound($value, 'file for Filesize validator');
+        }
+        
+        if($filesize>$this->max) {
             return new ValidationResult(false, 'File is too large');
         }
 

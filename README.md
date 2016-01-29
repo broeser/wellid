@@ -404,6 +404,7 @@ context you want to.
  - DataFormat
  - DataType
  - NotFound
+ - FileNotFound
 
 ## Contributing?
 

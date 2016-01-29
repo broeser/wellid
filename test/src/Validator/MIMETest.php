@@ -76,5 +76,57 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
     public function testValidateBool($value, $expected) {
         $this->assertEquals($expected, $this->object->validateBool(__DIR__ . '/../../../' . $value));
     }
+    
+    /**
+     * @covers Wellid\Validator\MIME::__construct
+     * @covers Wellid\Validator\MIME::validate
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new MIME(-100);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            new MIME('text');
+        } catch (\Wellid\Exception\DataFormat $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            $x = new MIME('text/plain');
+            $x->validate(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            $x = new MIME('text/plain');
+            $x->validate('readme.ini');
+        } catch (\Wellid\Exception\FileNotFound $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+    }
 
 }
