@@ -30,24 +30,88 @@ class FloatingPointTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Validator\FloatingPoint::validate
-     * @todo   Implement testValidate().
+     * @dataProvider booleanProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
+    public function testValidate($value, $expected) {
+        $result = $this->object->validate($value);
+
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+
+        if ($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string) $result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string) $result);
+        }
+    }
+
+    /**
+     * Dataprovider for testValidate and testValidateBool
+     * 
+     * @return array()
+     */
+    public function booleanProvider() {
+        return array(
+            array(null, false),
+            array('TRUE', false),
+            array('abc', false),
+            array(1, true),
+            array(1.0, true),
+            array(1.1, true),
+            array(true, true),
+            array(0.1, true),
+            array(0.999, true),
+            array(434, true),
+            array('3', true),
+            array('3.3', true),
+            array('', false)
         );
     }
 
     /**
-     * @covers Wellid\Validator\FloatingPoint::validateBool
-     * @todo   Implement testValidateBool().
+     * @covers Wellid\Validator\FloatingPoint::validate
+     * @covers Wellid\Validator\FloatingPoint::__construct
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testDecimal() {
+        $fp0 = new FloatingPoint();
+        $fp1 = new FloatingPoint(',');
+        
+        $this->assertTrue($fp0->validateBool('5.42'));
+        $this->assertFalse($fp0->validateBool('5,42'));
+        $this->assertFalse($fp0->validateBool('5_42'));
+        $this->assertFalse($fp1->validateBool('5.42'));
+        $this->assertTrue($fp1->validateBool('5,42'));
+        $this->assertFalse($fp1->validateBool('5_42'));
+        
+    }
+    
+    /**
+     * 
+     */
+    public function testArrayAndObjectValidation() {
+        $this->assertFalse($this->object->validateBool(array(true)));
+        $x = new \stdClass();
+        $x->y = 'z';
+        $this->assertFalse($this->object->validateBool($x));
+    }
+
+    /**
+     * @covers Wellid\Validator\FloatingPoint::validateBool
+     * @dataProvider booleanProvider
+     * @param mixed $value
+     * @param boolean $expected
+     */
+    public function testValidateBool($value, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool($value));
     }
 
 }

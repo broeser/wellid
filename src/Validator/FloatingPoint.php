@@ -32,6 +32,17 @@ use Wellid\ValidationResult;
 class FloatingPoint implements ValidatorInterface {
     use ValidatorTrait;
     
+    protected $decimal;
+    
+    /**
+     * Constructor
+     * 
+     * @param string $decimal decimal separator
+     */
+    public function __construct($decimal = '.') {
+        $this->decimal = $decimal;
+    }
+    
     /**
      * Validates the given $value
      * Checks if it is a valid (possible) floating point value
@@ -40,7 +51,7 @@ class FloatingPoint implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
-        if(!filter_var($value, FILTER_VALIDATE_FLOAT)) {
+        if(!filter_var($value, FILTER_VALIDATE_FLOAT, array('options' => array('decimal' => $this->decimal)))) {
             return new ValidationResult(false, 'Not a floating point value');
         }        
         return new ValidationResult(true);
