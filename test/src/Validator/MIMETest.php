@@ -62,7 +62,7 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
             $this->assertFalse($result->hasPassed());
             $this->assertTrue($result->isError());
             $this->assertNotEmpty($result->getMessage());
-            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals(MIME::ERR_MIME, $result->getCode());
             $this->assertNotEquals('passed', (string) $result);
         }
     }
@@ -75,6 +75,11 @@ class MIMETest extends \PHPUnit_Framework_TestCase {
      */
     public function testValidateBool($value, $expected) {
         $this->assertEquals($expected, $this->object->validateBool(__DIR__ . '/../../../' . $value));
+    }
+    
+    public function testErrCodeSubType() {
+        $mime = new MIME('text/foobar');
+        $this->assertEquals(MIME::ERR_SUBTYPE, $mime->validate(__DIR__ . '/../../../LICENSE')->getCode());
     }
     
     /**
