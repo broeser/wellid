@@ -59,6 +59,10 @@ class MIME implements ValidatorInterface {
      * @param string $mime MIME type (with wildcard support e. g. text/*)
      */
     public function __construct($mime) {
+        if(!is_string($mime)) {
+            throw new DataType('mime', 'string', $mime);
+        }
+        
         $mimeParts = explode('/', $mime);
         
         if(count($mimeParts)!==2) {
@@ -82,7 +86,11 @@ class MIME implements ValidatorInterface {
             
         $fileInfo = new \finfo(FILEINFO_MIME_TYPE);            
         $mimeType = $fileInfo->file($filename);
-            
+        
+        if($mimeType===false) {
+            throw new \Wellid\Exception\FileNotFound($filename, 'file for MIME validator');
+        }
+        
         $mimeParts = explode('/', $mimeType);
             
         if(count($mimeParts)!==2) {
