@@ -69,14 +69,14 @@ These are the validators supplied with wellid by default:
  - Boolean
  - Date
  - Email
- - Filesize _(experimental)_
+ - Filesize
  - FloatingPoint
- - IPAddress
+ - IPAddress _(experimental)_
  - Integer
- - MacAddress
+ - MacAddress _(experimental)_
  - Max
  - MaxLength
- - MIME _(experimental)_
+ - MIME
  - Min
  - MinLength
  - Password
