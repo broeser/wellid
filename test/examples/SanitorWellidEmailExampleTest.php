@@ -40,13 +40,13 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers WellidUsageExamples\SanitorWellidEmailExample::setSanitizer
-     * @todo   Implement testSetSanitizer().
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::__construct
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::addValidators
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::getValidators
      */
     public function testSetSanitizer() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $x = new SanitorWellidEmailExample();
+        $this->assertCount(2, $x->getValidators());
     }
 
     /**
@@ -63,116 +63,6 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->validate()->hasPassed());
         $this->object->rawValueFromInput(\INPUT_SESSION, 'invalidemail');
         $this->assertFalse($this->object->validate()->hasPassed());
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::setRawValue
-     * @todo   Implement testSetRawValue().
-     */
-    public function testSetRawValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::clearValidationResult
-     * @todo   Implement testClearValidationResult().
-     */
-    public function testClearValidationResult() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::disableValidationCache
-     * @todo   Implement testDisableValidationCache().
-     */
-    public function testDisableValidationCache() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::isValidationCacheEnabled
-     * @todo   Implement testIsValidationCacheEnabled().
-     */
-    public function testIsValidationCacheEnabled() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::validate
-     * @todo   Implement testValidate().
-     */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::validateBool
-     * @todo   Implement testValidateBool().
-     */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::validateValue
-     * @todo   Implement testValidateValue().
-     */
-    public function testValidateValue() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::addValidator
-     * @todo   Implement testAddValidator().
-     */
-    public function testAddValidator() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::addValidators
-     * @todo   Implement testAddValidators().
-     */
-    public function testAddValidators() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers WellidUsageExamples\SanitorWellidEmailExample::getValidators
-     * @todo   Implement testGetValidators().
-     */
-    public function testGetValidators() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
     }
 
 }
