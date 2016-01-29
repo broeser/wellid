@@ -2,8 +2,14 @@
 
 namespace Wellid\Cache;
 class TestCacheableValidatable extends AbstractCacheableValidatable {
+    private $value = 4;
+    
+    public function setValue($value) {
+        $this->value = $value;
+    }
+    
     public function getValue() {
-        return 'mail@benedict\roe@ser.de';
+        return $this->value;
     }
 }
 /**
@@ -12,7 +18,7 @@ class TestCacheableValidatable extends AbstractCacheableValidatable {
 class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
 
     /**
-     * @var AbstractCacheableValidatable
+     * @var TestCacheableValidatable
      */
     protected $object;
 
@@ -34,13 +40,13 @@ class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Cache\AbstractCacheableValidatable::clearValidationResult
-     * @todo   Implement testClearValidationResult().
      */
     public function testClearValidationResult() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->addValidator(new \Wellid\Validator\Min(100));
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->clearValidationResult();
+        $this->assertFalse($this->object->validate()->hasPassed());
     }
 
     /**
@@ -48,21 +54,22 @@ class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
      * @todo   Implement testDisableValidationCache().
      */
     public function testDisableValidationCache() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->addValidator(new \Wellid\Validator\Min(100));
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->disableValidationCache();
+        $this->assertFalse($this->object->validate()->hasPassed());
+        $this->object->setValue(200);
+        $this->assertTrue($this->object->validate()->hasPassed());
     }
 
     /**
      * @covers Wellid\Cache\AbstractCacheableValidatable::isValidationCacheEnabled
-     * @todo   Implement testIsValidationCacheEnabled().
      */
     public function testIsValidationCacheEnabled() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertTrue($this->object->isValidationCacheEnabled());
+        $this->object->disableValidationCache();
+        $this->assertFalse($this->object->isValidationCacheEnabled());
     }
 
 }
