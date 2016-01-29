@@ -54,7 +54,7 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers Wellid\Validator\FloatingPoint::validate
+     * @covers Wellid\Validator\Max::validate
      * @dataProvider dataProvider
      * @param mixed $value
      * @param boolean $expected

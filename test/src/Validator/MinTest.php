@@ -53,7 +53,7 @@ class MinTest extends \PHPUnit_Framework_TestCase {
     }
     
     /**
-     * @covers Wellid\Validator\FloatingPoint::validate
+     * @covers Wellid\Validator\Min::validate
      * @dataProvider dataProvider
      * @param mixed $value
      * @param boolean $expected
