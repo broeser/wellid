@@ -95,4 +95,19 @@ class MinTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->validateBool(0));
     }
 
+    /**
+     * @covers Wellid\Validator\Min::__construct
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new Min(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+    }    
 }

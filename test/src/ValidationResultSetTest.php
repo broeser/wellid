@@ -29,40 +29,36 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @covers Wellid\ValidationResultSet::hasErrors
-     * @todo   Implement testHasErrors().
-     */
-    public function testHasErrors() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
-     * @covers Wellid\ValidationResultSet::hasPassed
-     * @todo   Implement testHasPassed().
-     */
-    public function testHasPassed() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
-    }
-
-    /**
      * @covers Wellid\ValidationResultSet::add
-     * @todo   Implement testAdd().
+     * @covers Wellid\ValidationResultSet::hasPassed
+     * @covers Wellid\ValidationResultSet::hasErrors
+     * @covers Wellid\ValidationResultSet::count
+     * @covers Wellid\ValidationResultSet::firstError
      */
     public function testAdd() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->assertEquals(0, $this->object->count());
+
+        $this->object->add(new ValidationResult(true));
+        $this->object->add(new ValidationResult(true));
+
+        $this->assertTrue($this->object->hasPassed());
+        $this->assertEquals(2, $this->object->count());
+        $this->assertNull($this->object->firstError());
+
+        $this->object->add(new ValidationResult(false, 'test error message'));
+        $this->assertFalse($this->object->hasPassed());
+        $this->assertTrue($this->object->hasErrors());
+        $this->assertEquals(3, $this->object->count());
+
+        $this->assertEquals('test error message', $this->object->firstError()->getMessage());
     }
 
     /**
      * @covers Wellid\ValidationResultSet::addSet
+     * @covers Wellid\ValidationResultSet::hasPassed
+     * @covers Wellid\ValidationResultSet::hasErrors
+     * @covers Wellid\ValidationResultSet::count
+     * @covers Wellid\ValidationResultSet::firstError
      */
     public function testAddSet() {
         $this->object->addSet(new ValidationResultSet());
@@ -80,6 +76,7 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
         $set2->add(new ValidationResult(true));
         $this->object->addSet($set2);
         $this->assertFalse($this->object->hasPassed());
+        $this->assertTrue($this->object->hasErrors());
         $this->assertEquals(4, $this->object->count());
 
         $set3 = new ValidationResultSet();
@@ -94,19 +91,24 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
      * @covers Wellid\ValidationResultSet::key
      * @covers Wellid\ValidationResultSet::current
      * @covers Wellid\ValidationResultSet::valid
-     * @todo   Implement testForeach().
+     * @depends testAdd
      */
     public function testForeach() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->object->add(new ValidationResult(false, 'test error message'));
+        $this->object->add(new ValidationResult(true));
+        $this->object->add(new ValidationResult(true));
+        $i = 0;
+        foreach($this->object as $key => $validationResult) {
+            $this->assertEquals($i, $key);
+            $this->assertInstanceOf('Wellid\ValidationResult', $validationResult);
+            if($i===0) $this->assertTrue($validationResult->isError());
+            $i++;
+        }
     }
 
     /**
      * @covers Wellid\ValidationResultSet::count
      * @depends testAdd
-     * @todo   Implement testCount().
      */
     public function testCount() {
         $this->assertCount(0, $this->object);
@@ -114,5 +116,19 @@ class ValidationResultSetTest extends \PHPUnit_Framework_TestCase {
         $this->object->add(new ValidationResult(true));
         $this->assertCount(2, $this->object);
     }
-
+    
+    /**
+     * @covers Wellid\ValidationResultSet::getErrorMessages
+     * @depends testAdd
+     */
+    public function testGetErrorMessages() {
+        $this->object->add(new ValidationResult(false, 'test error message'));
+        $this->object->add(new ValidationResult(true));
+        $this->object->add(new ValidationResult(false, 'test error message 2'));
+        $this->object->add(new ValidationResult(true));
+        $x = $this->object->getErrorMessages();
+        $this->assertInternalType('array', $x);
+        $this->assertCount(2, $x);
+        $this->assertEquals('test error message', $x[0]);
+    }
 }

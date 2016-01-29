@@ -83,4 +83,32 @@ class MinLengthTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $this->object->validateBool($value));
     }
 
+    /**
+     * @covers Wellid\Validator\MinLength::__construct
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new MinLength(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            new MinLength(-3);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        new MinLength(0);
+    }      
 }

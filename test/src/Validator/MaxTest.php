@@ -95,5 +95,20 @@ class MaxTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->validateBool(5.8));
         $this->assertTrue($this->object->validateBool(0));
     }
-
+    
+    /**
+     * @covers Wellid\Validator\Max::__construct
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new Max(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+    }
 }

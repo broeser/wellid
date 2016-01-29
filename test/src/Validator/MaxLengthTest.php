@@ -83,4 +83,32 @@ class MaxLengthTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $this->object->validateBool($value));
     }
 
+    /**
+     * @covers Wellid\Validator\MaxLength::__construct
+     */
+    public function testExceptions() {
+        $exceptionOkay = false;
+        try {
+            new MaxLength(false);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        $exceptionOkay = false;
+        try {
+            new MaxLength(-3);
+        } catch (\Wellid\Exception\DataType $ex) {
+            $exceptionOkay = true;
+        }
+        
+        if(!$exceptionOkay) {
+            $this->fail('Expected Exception was not thrown');
+        }
+        
+        new MaxLength(0);
+    }     
 }

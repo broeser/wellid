@@ -93,4 +93,11 @@ class SanitorMatchTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $this->testSanitizable->validateBool());
     }
 
+    /**
+     * @covers Wellid\Validator\SanitorMatch::__construct()
+     */
+    public function testConstructor() {
+        $x = new SanitorMatch(new TestSanitizable());
+        $this->assertInstanceOf('Wellid\Validator\SanitorMatch', $x);
+    }
 }
