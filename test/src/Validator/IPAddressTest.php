@@ -84,6 +84,18 @@ class IPAddressTest extends \PHPUnit_Framework_TestCase {
         $x->y = 'z';
         $this->assertFalse($this->object->validateBool($x));
     }
+	
+	/**
+     * @covers Wellid\Validator\IPAddress::__construct
+     */
+	public function testExceptions() {
+		try {
+			new IPAddress('FILTER_FLAG_IPV4');
+		} catch (\Wellid\Exception\DataType $ex) {
+			return;
+		}
+		$this->fail('Expected exception was not thrown.');
+	}
 
     /**
      * @covers Wellid\Validator\IPAddress::validateBool
