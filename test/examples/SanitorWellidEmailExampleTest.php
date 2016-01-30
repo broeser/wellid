@@ -37,6 +37,22 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals(FILTER_SANITIZE_EMAIL, $this->object->getSanitizer()->getSanitizeFilter());
         $this->assertEquals(FILTER_NULL_ON_FAILURE, $this->object->getSanitizer()->getSanitizeFlags());
     }
+	
+	/**
+     * @covers WellidUsageExamples\SanitorWellidEmailExample::setRawValue
+	 * @covers WellidUsageExamples\SanitorWellidEmailExample::addSanitorMatchValidator
+     */
+	public function testSetRawValue() {
+		$this->assertNull($this->object->getRawValue());
+		$this->object->setRawValue('example@exam\ple.org');
+		$this->assertEquals('example@exam\ple.org', $this->object->getRawValue());
+		$this->assertTrue($this->object->validateBool());
+		$this->object->setRawValue('foooo');
+		$this->assertFalse($this->object->validateBool());
+		$this->assertInstanceOf('WellidUsageExamples\SanitorWellidEmailExample', $this->object->addSanitorMatchValidator());
+		$this->object->setRawValue('example@exam\ple.org');
+		$this->assertFalse($this->object->validateBool());
+	}
 
     /**
      * @covers WellidUsageExamples\SanitorWellidEmailExample::setSanitizer
