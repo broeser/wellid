@@ -71,9 +71,9 @@ These are the validators supplied with wellid by default:
  - Email
  - Filesize
  - FloatingPoint
- - IPAddress _(experimental)_
+ - IPAddress
  - Integer
- - MacAddress _(experimental)_
+ - MacAddress
  - Max
  - MaxLength
  - MIME
