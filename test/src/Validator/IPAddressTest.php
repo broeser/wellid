@@ -28,26 +28,71 @@ class IPAddressTest extends \PHPUnit_Framework_TestCase {
         
     }
 
+	/**
+     * Dataprovider for testValidate and testValidateBool
+     * 
+     * @return array()
+     */
+    public function dataProvider() {
+        return array(
+            array(null, false),
+            array('TRUE', false),
+            array('abc', false),
+            array(1, false),
+            array('123.123.123.123', true),
+			array('2001:0db8:85a3:08d3:1319:8a2e:0370:7344', true),
+			array('2001:ghij:85a3:08d3:1319:8a2e:0370:7344', false),
+            array('123.456.789.123', false),
+			array('123.121.12.121', true),
+			array('123.1121.12.121', false),
+            array('', false)
+        );
+    }	
+	
     /**
      * @covers Wellid\Validator\IPAddress::validate
-     * @todo   Implement testValidate().
+     * @dataProvider dataProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidate() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidate($value, $expected) {
+        $result = $this->object->validate($value);
+
+        $this->assertInstanceOf('Wellid\ValidationResult', $result);
+
+        if ($expected) {
+            $this->assertTrue($result->hasPassed());
+            $this->assertFalse($result->isError());
+            $this->assertEmpty($result->getMessage());
+            $this->assertEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertEquals('passed', (string) $result);
+        } else {
+            $this->assertFalse($result->hasPassed());
+            $this->assertTrue($result->isError());
+            $this->assertNotEmpty($result->getMessage());
+            $this->assertNotEquals(\Wellid\ValidationResult::ERR_NONE, $result->getCode());
+            $this->assertNotEquals('passed', (string) $result);
+        }
+    }
+
+    /**
+     * 
+     */
+    public function testArrayAndObjectValidation() {
+        $this->assertFalse($this->object->validateBool(array(true)));
+        $x = new \stdClass();
+        $x->y = 'z';
+        $this->assertFalse($this->object->validateBool($x));
     }
 
     /**
      * @covers Wellid\Validator\IPAddress::validateBool
-     * @todo   Implement testValidateBool().
+     * @dataProvider dataProvider
+     * @param mixed $value
+     * @param boolean $expected
      */
-    public function testValidateBool() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+    public function testValidateBool($value, $expected) {
+        $this->assertEquals($expected, $this->object->validateBool($value));
     }
 
 }
