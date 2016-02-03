@@ -26,6 +26,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   the size of the file
 - **Date**-Validator now throws an exception, if neither NULL nor a string is 
   passed as data format
+- Improved exceptions thrown by the **Password**-Validator
 
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL

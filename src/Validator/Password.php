@@ -25,6 +25,7 @@
 namespace Wellid\Validator;
 use Wellid\ValidationResult;
 use Wellid\Exception\DataType;
+use Wellid\Exception\DataFormat;
 /**
  * Description of Password
  *
@@ -52,8 +53,8 @@ class Password implements ValidatorInterface {
         
         $hashInfos = password_get_info($hash);
         if($hashInfos['algo']===0) {
-            throw new DataType('hash', 'a valid password hash', $hash);
-        }
+            throw new DataFormat('hash', 'a valid password hash', $hash);
+        }        
         
         $this->hash = $hash;
     }
@@ -66,6 +67,10 @@ class Password implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
+        if(!is_string($value)) {
+            throw new DataType('value', 'string', $value);
+        }
+        
         if(!password_verify($value, $this->hash)) {
             return new ValidationResult(false, 'Wrong password');
         }        
