@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.3.0] - 2016-02-03
 ### Added
 - **FloatingPoint**-Validator now supports optional decimal separator parameter
   in constructor
@@ -64,7 +66,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.0.1] - 2016-01-21
 - Initial release
 
-[Unreleased]: https://github.com/broeser/wellid/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/broeser/wellid/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/broeser/wellid/releases/tag/0.3.0
 [0.2.0]: https://github.com/broeser/wellid/releases/tag/0.2.0
 [0.1.0]: https://github.com/broeser/wellid/releases/tag/0.1.0
 [0.0.2]: https://github.com/broeser/wellid/releases/tag/0.0.2
