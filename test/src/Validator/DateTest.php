@@ -87,6 +87,9 @@ class DateTest extends \PHPUnit_Framework_TestCase {
      * @covers Wellid\Validator\Date::__construct
      */
     public function testConstructor() {
+        $d = new Date('d.m.Y');
+        $this->assertTrue($d->validateBool('30.11.2011'));
+        
         try {
             new Date(123);
         } catch (\Wellid\Exception\DataType $ex) {
