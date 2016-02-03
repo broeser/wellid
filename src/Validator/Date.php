@@ -46,8 +46,10 @@ class Date implements ValidatorInterface {
      * @param string $format
      */
     public function __construct($format = null) {
-        if(!is_null($format)) {
+        if(is_string($format)) {
             $this->format = $format;
+        } elseif(!is_null($format)) {
+            throw new \Wellid\Exception\DataType('format', 'string', $format);
         }
     }
     

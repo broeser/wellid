@@ -83,4 +83,15 @@ class DateTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals($expected, $this->object->validateBool($date));
     }
 
+    /**
+     * @covers Wellid\Validator\Date::__construct
+     */
+    public function testConstructor() {
+        try {
+            new Date(123);
+        } catch (\Wellid\Exception\DataType $ex) {
+            return;
+        }
+        $this->fail('Expected DataType-Exception was not thrown');
+    }
 }

@@ -24,6 +24,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
   this string
 - **Filesize**-Validator now takes a filename string instead of an array containing
   the size of the file
+- **Date**-Validator now throws an exception, if neither NULL nor a string is 
+  passed as data format
 
 ### Fixed
 - **Boolean**-Validator now works correctly on objects and NULL
