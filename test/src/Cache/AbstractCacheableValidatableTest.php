@@ -40,6 +40,7 @@ class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Cache\AbstractCacheableValidatable::clearValidationResult
+     * @covers Wellid\Cache\AbstractCacheableValidatable::validate
      */
     public function testClearValidationResult() {
         $this->assertTrue($this->object->validate()->hasPassed());
@@ -51,7 +52,7 @@ class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
 
     /**
      * @covers Wellid\Cache\AbstractCacheableValidatable::disableValidationCache
-     * @todo   Implement testDisableValidationCache().
+     * @covers Wellid\Cache\AbstractCacheableValidatable::validate
      */
     public function testDisableValidationCache() {
         $this->assertTrue($this->object->validate()->hasPassed());
@@ -71,5 +72,4 @@ class AbstractCacheableValidatableTest extends \PHPUnit_Framework_TestCase {
         $this->object->disableValidationCache();
         $this->assertFalse($this->object->isValidationCacheEnabled());
     }
-
 }

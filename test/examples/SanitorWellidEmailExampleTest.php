@@ -72,6 +72,8 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
      * @covers WellidUsageExamples\SanitorWellidEmailExample::getValue
      */
     public function testRawValueFromInput() {
+        $this->object->rawValueFromInput(\INPUT_SESSION, 'foo');
+        $this->assertNull($this->object->getRawValue());
         $this->object->rawValueFromInput(\INPUT_SESSION, 'validemail');
         $this->assertEquals('mail@benedict\roeser.de', $this->object->getRawValue());
         $this->assertEquals('mail@benedictroeser.de', $this->object->getFilteredValue());

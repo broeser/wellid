@@ -32,7 +32,9 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase {
      * @covers Wellid\ValidationResult::__toString
      */
     public function test__toString() {
-        $this->assertEquals('passed', $this->object->__toString());
+        $this->assertEquals('passed', (string)$this->object);
+        $v = new ValidationResult(false, 'ERROR!!!');
+        $this->assertEquals('ERROR!!!', (string)$v);
     }
 
     /**
@@ -63,5 +65,19 @@ class ValidationResultTest extends \PHPUnit_Framework_TestCase {
     public function testGetCode() {
         $this->assertEquals(ValidationResult::ERR_NONE, $this->object->getCode());
     }
-
+    
+    /**
+     * @covers Wellid\ValidationResult::__construct
+     */
+    public function testConstructor() {
+        $v = new ValidationResult(true, 'Everything is fine!', ValidationResult::ERR_DEFAULT);
+        $this->assertEquals(ValidationResult::ERR_NONE, $v->getCode());
+        
+        try {
+            new ValidationResult('true');
+        } catch (Exception\DataType $ex) {
+            return;
+        }
+        $this->fail('Expected DataType-Exception was not thrown');
+    }
 }
