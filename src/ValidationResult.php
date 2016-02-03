@@ -24,7 +24,7 @@
  */
 namespace Wellid;
 
-use Exception\DataType;
+use Wellid\Exception\DataType;
 
 /**
  * Result of a single validation is put into a ValidationResult containing

@@ -29,6 +29,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - **Boolean**-Validator now works correctly on objects and NULL
 - Renamed former Float-Validator to **FloatingPoint**, in order to work on PHP 7
 - **rawValueFromInput()** did not work correctly with INPUT_ENV
+- Passing a non-boolean as first parameter to **ValidationResult** now throws
+  the correct exception
 
 ## [0.2.0] - 2016-01-23
 ### Added
