@@ -51,7 +51,7 @@ class FloatingPoint implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
-        if(!filter_var($value, FILTER_VALIDATE_FLOAT, array('options' => array('decimal' => $this->decimal)))) {
+        if(filter_var($value, FILTER_VALIDATE_FLOAT, array('options' => array('decimal' => $this->decimal)))===false) {
             return new ValidationResult(false, 'Not a floating point value');
         }        
         return new ValidationResult(true);

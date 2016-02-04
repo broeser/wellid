@@ -72,6 +72,8 @@ class IntegerTest extends \PHPUnit_Framework_TestCase {
             array(0.999, false),
             array(434, true),
             array('3', true),
+            array('0', true),
+            array(0, true),
             array('3.3', false),
             array('', false)
         );

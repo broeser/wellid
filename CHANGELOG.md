@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Fixed
+- **Integer** and **Float**-Validators did not work correctly for 0
 
 ## [0.3.0] - 2016-02-03
 ### Added

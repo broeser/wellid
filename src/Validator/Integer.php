@@ -40,7 +40,7 @@ class Integer implements ValidatorInterface {
      * @return ValidationResult
      */
     public function validate($value) {
-        if(!filter_var($value, FILTER_VALIDATE_INT)) {
+        if(filter_var($value, FILTER_VALIDATE_INT)===false) {
             return new ValidationResult(false, 'Not a valid integer');
         }        
         return new ValidationResult(true);
