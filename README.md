@@ -1,4 +1,4 @@
-# wellid
+# ![wellid](https://github.com/broeser/wellid/blob/gh-pages/images/wellid-logo.svg)
 
 wellid is a set of PHP validators and a few loosely coupled components for validation.
 
