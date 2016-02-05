@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Wellid\Validator;
+
 use Wellid\ValidationResult;
 use Wellid\Exception\DataType;
 

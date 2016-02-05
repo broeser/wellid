@@ -23,9 +23,11 @@
  * THE SOFTWARE.
  */
 namespace Wellid\Validator;
+
 use Wellid\ValidationResult;
 use Wellid\Exception\DataType;
 use Wellid\Exception\DataFormat;
+
 /**
  * Description of Password
  *

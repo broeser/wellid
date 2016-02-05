@@ -23,6 +23,7 @@
  * THE SOFTWARE.
  */
 namespace Wellid\Exception;
+
 /**
  * DataType Exception
  */

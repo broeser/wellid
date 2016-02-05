@@ -25,8 +25,8 @@
  */
 
 namespace Wellid\Validator;
-use Wellid\ValidationResult;
 
+use Wellid\ValidationResult;
 
 /**
  * Description of SanitorMatch

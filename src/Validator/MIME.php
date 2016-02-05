@@ -27,6 +27,7 @@ namespace Wellid\Validator;
 use Wellid\ValidationResult;
 use Wellid\Exception\DataFormat;
 use Wellid\Exception\DataType;
+
 /**
  * Checks the MIME type of file, takes a filename as input
  *

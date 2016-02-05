@@ -25,7 +25,6 @@
 namespace Wellid\Validator;
 
 use Wellid\ValidationResult;
-use Wellid\Exception\NotFound;
 use Wellid\Exception\DataType;
 
 /**
