@@ -76,9 +76,11 @@ These are the validators supplied with wellid by default:
  - Integer
  - MacAddress
  - Max
+ - MaxDate
  - MaxLength
  - MIME
  - Min
+ - MinDate
  - MinLength
  - Password
  - URL

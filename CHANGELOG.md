@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- **MinDate** and **MaxDate**-Validators to validate if a date is within a given
+  range
 ### Fixed
 - **Integer** and **Float**-Validators did not work correctly for 0
 
