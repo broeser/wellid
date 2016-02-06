@@ -106,8 +106,6 @@ class MaxDateTest extends \PHPUnit_Framework_TestCase {
         
         $v = new MaxDate(new \DateTimeImmutable('now'), 'dmY');
         $d = new \DateTimeImmutable('now -7 days');
-        var_dump($d->format('dmY'));
-        var_dump($v);
         $this->assertTrue($v->validateBool($d->format('dmY')));
         $this->assertFalse($v->validateBool($d->format('d-m-Y')));
     }
