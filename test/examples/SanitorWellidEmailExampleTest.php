@@ -93,6 +93,10 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->validate()->hasPassed());
         $this->object->rawValueFromInput(\INPUT_ENV, 'env_invalid');
         $this->assertFalse($this->object->validate()->hasPassed());
+        
+        $this->object->rawValueFromInput(\INPUT_SERVER, 'PHP_SELF');
+        $this->assertFalse($this->object->validate()->hasPassed());
+        $this->assertEquals('phpunit', substr(strtolower($this->object->getFilteredValue()), -7));
     }
 
 }
