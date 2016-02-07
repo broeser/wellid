@@ -5,6 +5,9 @@ php:
 before_install:
   - pip install --user codecov
 install: composer install
+before_script:
+  - export env_valid="example@examp\le.org"
+  - export env_invalid="example@exam@@ple.org"
 script: phpunit --bootstrap test/bootstrap.php --configuration test/configuration.xml --coverage-clover=coverage.xml test
 after_success:
   - codecov

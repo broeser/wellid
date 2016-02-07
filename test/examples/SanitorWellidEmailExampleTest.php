@@ -81,6 +81,18 @@ class SanitorWellidEmailExampleTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue($this->object->validate()->hasPassed());
         $this->object->rawValueFromInput(\INPUT_SESSION, 'invalidemail');
         $this->assertFalse($this->object->validate()->hasPassed());
+        
+        $_REQUEST['rq_valid'] = 'mail@exa\mple.org';
+        $_REQUEST['rq_invalid'] = 'mailexample.org';
+        $this->object->rawValueFromInput(\INPUT_REQUEST, 'rq_valid');
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->rawValueFromInput(\INPUT_REQUEST, 'rq_invalid');
+        $this->assertFalse($this->object->validate()->hasPassed());
+        
+        $this->object->rawValueFromInput(\INPUT_ENV, 'env_valid');
+        $this->assertTrue($this->object->validate()->hasPassed());
+        $this->object->rawValueFromInput(\INPUT_ENV, 'env_invalid');
+        $this->assertFalse($this->object->validate()->hasPassed());
     }
 
 }
