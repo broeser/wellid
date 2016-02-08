@@ -41,7 +41,7 @@ class SanitorMatch implements ValidatorInterface {
      * 
      * @var type 
      */
-    private $sanitizable;
+    protected $sanitizable;
     
     /**
      * Constructor

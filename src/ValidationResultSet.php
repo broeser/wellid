@@ -35,7 +35,7 @@ class ValidationResultSet implements \Iterator, \Countable {
      * 
      * @var ValidationResult[]
      */
-    private $entries = array();    
+    protected $entries = array();    
     
     /**
      * Internal Iterator index
