@@ -7,7 +7,7 @@ wellid is a set of PHP validators and a few loosely coupled components for valid
 [![License](http://img.shields.io/:license-mit-blue.svg)](http://mit-license.org)
 [![SemVer 2.0.0](https://img.shields.io/badge/semver-2.0.0-blue.svg)](http://semver.org/spec/v2.0.0.html)
 
-Latest stable version: 0.3.0
+Latest stable version: 0.4.0
 
 ## Goals
 
